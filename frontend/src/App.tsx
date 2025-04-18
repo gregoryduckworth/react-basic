@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useCounter } from "./hooks/useCounter";
 import { Button } from "./components/Button";
 import { fetchApi } from "./services/api";
 import reactLogo from "./assets/react.svg";
@@ -7,10 +6,8 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
-  const { count, increment } = useCounter();
   const [apiCall, setApiCall] = useState<string | null>(null);
 
-  // Example API call with error handling
   async function checkHealth() {
     setApiCall(null);
     try {
@@ -64,7 +61,6 @@ function App() {
         </header>
         <main className="w-full max-w-md bg-white shadow-xl rounded-2xl p-4 sm:p-8 flex flex-col items-center gap-6">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center">
-            <Button onClick={increment}>count is {count}</Button>
             <Button onClick={checkHealth}>Check API Health</Button>
           </div>
           {apiCall && (
