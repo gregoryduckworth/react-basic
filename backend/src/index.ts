@@ -1,25 +1,31 @@
 import express from "express";
-import { PrismaClient } from "@prisma/client";
+import cors from "cors";
+import * as routes from "./routes";
+import prisma from "./services/db";
+import { errorHandler } from "./middleware/errorHandler";
 
 const app = express();
 const port = process.env.PORT || 4000;
-const prisma = new PrismaClient();
 
+app.use(cors());
 app.use(express.json());
+app.use(routes.healthRoute);
+app.use(routes.rootRoute);
 
-app.get("/", (req, res) => {
-  res.json({ message: "API is running!" });
-});
+app.use(errorHandler);
 
-app.get("/health", async (req, res) => {
-  try {
-    await prisma.$queryRaw`SELECT 1`;
-    res.status(200).json({ status: "ok" });
-  } catch (error) {
-    res.status(500).json({ status: "error", error: "Database unavailable" });
-  }
-});
-
-app.listen(port, () => {
+// Graceful shutdown
+const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
+
+function shutdown() {
+  console.log("Shutting down server...");
+  server.close(async () => {
+    await prisma.$disconnect();
+    process.exit(0);
+  });
+}
