@@ -18,11 +18,14 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("user");
+    const stored = localStorage.getItem("user");
     if (stored) setUser(JSON.parse(stored));
+    setLoading(false);
   }, []);
 
   const login = async (email: string, password: string) => {
@@ -33,7 +36,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         body: JSON.stringify({ email, password }),
       });
       setUser(data.user);
-      sessionStorage.setItem("user", JSON.stringify(data.user));
+      localStorage.setItem("user", JSON.stringify(data.user));
       return true;
     } catch {
       return false;
@@ -42,13 +45,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const logout = () => {
     setUser(null);
-    sessionStorage.removeItem("user");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 
   return (
     <AuthContext.Provider value={{ user, login, logout }}>
-      {children}
+      {loading ? <div>{t("loading")}</div> : children}
     </AuthContext.Provider>
   );
 }
