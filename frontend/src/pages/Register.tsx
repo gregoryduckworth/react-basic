@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
+import { fetchApi } from "../services/api";
 import "../App.css";
 
 function Register() {
@@ -19,23 +20,15 @@ function Register() {
       return;
     }
     try {
-      const res = await fetch(
-        `${import.meta.env.VITE_API_URL || ""}/register`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email, password }),
-        }
-      );
-      if (!res.ok) {
-        const data = await res.json();
-        setMessage(data.error || t("register_failed"));
-        return;
-      }
+      await fetchApi("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
       setMessage(null);
       navigate("/login");
-    } catch (err) {
-      setMessage(t("register_failed"));
+    } catch (err: any) {
+      setMessage(err?.message || t("register_failed"));
     }
   }
 

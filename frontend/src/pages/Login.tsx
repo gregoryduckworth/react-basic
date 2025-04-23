@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
+import { useAuth } from "../context/AuthContext";
 import "../App.css";
 
 function Login() {
@@ -10,25 +11,17 @@ function Login() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/login`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-      if (!res.ok) {
-        const data = await res.json();
-        setMessage(data.error || t("login_failed"));
-        return;
-      }
-      setMessage(null);
-      navigate("/dashboard");
-    } catch (err) {
+    const ok = await login(email, password);
+    if (!ok) {
       setMessage(t("login_failed"));
+      return;
     }
+    setMessage(null);
+    navigate("/dashboard");
   }
 
   return (

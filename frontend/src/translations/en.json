@@ -30,5 +30,6 @@
   "send_reset_link": "Send Reset Link",
   "subtitle_simple": "A modern starter powered by Vite and React with Tailwind CSS.",
   "title": "Vite + React",
-  "vite_logo_alt": "Vite logo"
+  "vite_logo_alt": "Vite logo",
+  "auth_context_error": "useAuth must be used within AuthProvider"
 }

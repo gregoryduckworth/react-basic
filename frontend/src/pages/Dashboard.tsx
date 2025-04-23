@@ -1,12 +1,14 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Dashboard() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { logout } = useAuth();
 
   function handleLogout() {
-    // Here you would also clear any auth state/token if implemented
+    logout();
     navigate("/login");
   }
 
