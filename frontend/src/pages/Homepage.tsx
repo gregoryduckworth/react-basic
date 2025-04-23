@@ -22,6 +22,12 @@ function Homepage() {
 
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-2 sm:p-4">
+      <a
+        href="/"
+        className="fixed top-4 left-4 text-blue-700 font-bold text-lg hover:underline z-50 bg-white/80 px-3 py-1 rounded shadow"
+      >
+        {t("homepage")}
+      </a>
       <div className="w-full max-w-2xl flex flex-col items-center">
         <header className="w-full flex flex-col items-center gap-4 mb-8 px-2 sm:px-4">
           <div className="flex gap-4 sm:gap-6 items-center flex-wrap justify-center">
@@ -67,9 +73,17 @@ function Homepage() {
               {apiCall}
             </div>
           )}
-          <p className="text-gray-400 text-xs sm:text-sm text-center">
-            {t("edit_and_save_simple")}
-          </p>
+          <div className="flex flex-col gap-2 w-full text-center">
+            <a href="/login" className="text-blue-500 hover:underline text-sm">
+              {t("login_link")}
+            </a>
+            <a
+              href="/register"
+              className="text-blue-500 hover:underline text-sm"
+            >
+              {t("register_link")}
+            </a>
+          </div>
         </main>
         <footer className="mt-8 sm:mt-10 text-gray-400 text-xs text-center px-2">
           {t("footer")}
