@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import "../App.css";
 
@@ -9,14 +10,33 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  function handleRegister(e: React.FormEvent) {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage(t("passwords_no_match"));
       return;
     }
-    setMessage(t("register_success"));
+    try {
+      const res = await fetch(
+        `${import.meta.env.VITE_API_URL || ""}/register`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+      if (!res.ok) {
+        const data = await res.json();
+        setMessage(data.error || t("register_failed"));
+        return;
+      }
+      setMessage(null);
+      navigate("/login");
+    } catch (err) {
+      setMessage(t("register_failed"));
+    }
   }
 
   return (

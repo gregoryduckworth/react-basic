@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../components/Button";
 import "../App.css";
 
@@ -8,10 +9,26 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const navigate = useNavigate();
 
-  function handleLogin(e: React.FormEvent) {
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(t("login_success")); // Placeholder for actual login logic
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || ""}/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        setMessage(data.error || t("login_failed"));
+        return;
+      }
+      setMessage(null);
+      navigate("/dashboard");
+    } catch (err) {
+      setMessage(t("login_failed"));
+    }
   }
 
   return (

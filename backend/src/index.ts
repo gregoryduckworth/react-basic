@@ -11,6 +11,7 @@ app.use(cors());
 app.use(express.json());
 app.use(routes.healthRoute);
 app.use(routes.rootRoute);
+app.use(routes.authRoute);
 
 app.use(errorHandler);
 
