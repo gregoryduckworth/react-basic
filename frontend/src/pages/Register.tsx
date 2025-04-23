@@ -11,6 +11,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   async function handleRegister(e: React.FormEvent) {
@@ -19,6 +20,7 @@ function Register() {
       setMessage(t("passwords_no_match"));
       return;
     }
+    setLoading(true);
     try {
       await fetchApi("/register", {
         method: "POST",
@@ -26,8 +28,10 @@ function Register() {
         body: JSON.stringify({ email, password }),
       });
       setMessage(null);
+      setLoading(false);
       navigate("/login");
     } catch (err: any) {
+      setLoading(false);
       const errorKey =
         err?.message?.errorKey || err?.errorKey || err?.message || err;
       setMessage(t(errorKey));
@@ -55,35 +59,53 @@ function Register() {
           <form
             className="flex flex-col gap-4 w-full"
             onSubmit={handleRegister}
+            aria-label={t("register_form_label")}
           >
+            <label htmlFor="email" className="sr-only">
+              {t("email")}
+            </label>
             <input
+              id="email"
               type="email"
               className="border rounded px-3 py-2 w-full text-gray-900"
               placeholder={t("email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="username"
             />
+            <label htmlFor="password" className="sr-only">
+              {t("password")}
+            </label>
             <input
+              id="password"
               type="password"
               className="border rounded px-3 py-2 w-full text-gray-900"
               placeholder={t("password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
+            <label htmlFor="confirmPassword" className="sr-only">
+              {t("confirm_password")}
+            </label>
             <input
+              id="confirmPassword"
               type="password"
               className="border rounded px-3 py-2 w-full text-gray-900"
               placeholder={t("confirm_password")}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
+              autoComplete="new-password"
             />
-            <Button type="submit">{t("register")}</Button>
+            <Button type="submit" disabled={loading} aria-busy={loading}>
+              {loading ? t("registering") : t("register")}
+            </Button>
           </form>
           {message && (
-            <div className="text-red-600 font-medium text-center">
+            <div className="text-red-600 font-medium text-center" role="alert">
               {message}
             </div>
           )}

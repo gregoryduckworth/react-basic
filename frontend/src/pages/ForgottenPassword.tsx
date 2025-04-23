@@ -7,10 +7,15 @@ function ForgottenPassword() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   function handleForgotten(e: React.FormEvent) {
     e.preventDefault();
-    setMessage(t("forgotten_password_sent"));
+    setLoading(true);
+    setTimeout(() => {
+      setMessage(t("forgotten_password_sent"));
+      setLoading(false);
+    }, 800);
   }
 
   return (
@@ -34,19 +39,30 @@ function ForgottenPassword() {
           <form
             className="flex flex-col gap-4 w-full"
             onSubmit={handleForgotten}
+            aria-label={t("forgotten_form_label")}
           >
+            <label htmlFor="email" className="sr-only">
+              {t("email")}
+            </label>
             <input
+              id="email"
               type="email"
               className="border rounded px-3 py-2 w-full text-gray-900"
               placeholder={t("email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="username"
             />
-            <Button type="submit">{t("send_reset_link")}</Button>
+            <Button type="submit" disabled={loading} aria-busy={loading}>
+              {loading ? t("sending") : t("send_reset_link")}
+            </Button>
           </form>
           {message && (
-            <div className="text-green-600 font-medium text-center">
+            <div
+              className="text-green-600 font-medium text-center"
+              role="status"
+            >
               {message}
             </div>
           )}

@@ -10,12 +10,15 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
+    setLoading(true);
     const ok = await login(email, password);
+    setLoading(false);
     if (!ok) {
       setMessage(t("login_failed"));
       return;
@@ -42,27 +45,43 @@ function Login() {
           </p>
         </header>
         <main className="w-full max-w-md bg-white shadow-xl rounded-2xl p-4 sm:p-8 flex flex-col items-center gap-6">
-          <form className="flex flex-col gap-4 w-full" onSubmit={handleLogin}>
+          <form
+            className="flex flex-col gap-4 w-full"
+            onSubmit={handleLogin}
+            aria-label={t("login_form_label")}
+          >
+            <label htmlFor="email" className="sr-only">
+              {t("email")}
+            </label>
             <input
+              id="email"
               type="email"
               className="border rounded px-3 py-2 w-full text-gray-900"
               placeholder={t("email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="username"
             />
+            <label htmlFor="password" className="sr-only">
+              {t("password")}
+            </label>
             <input
+              id="password"
               type="password"
               className="border rounded px-3 py-2 w-full text-gray-900"
               placeholder={t("password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
+              autoComplete="current-password"
             />
-            <Button type="submit">{t("login")}</Button>
+            <Button type="submit" disabled={loading} aria-busy={loading}>
+              {loading ? t("logging_in") : t("login")}
+            </Button>
           </form>
           {message && (
-            <div className="text-red-600 font-medium text-center">
+            <div className="text-red-600 font-medium text-center" role="alert">
               {message}
             </div>
           )}
