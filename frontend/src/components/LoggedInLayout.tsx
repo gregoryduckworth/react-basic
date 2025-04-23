@@ -17,7 +17,7 @@ const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
         {header}
       </header>
       <div className="flex flex-1 overflow-hidden w-full">
-        <aside className="w-64 bg-white border-r shadow-sm hidden md:block p-4 h-full">
+        <aside className="w-64 bg-white border-r shadow-sm hidden md:block p-4 h-full min-h-[calc(100vh-4rem)]">
           {sidebar}
         </aside>
         <main className="flex-1 p-4 md:p-8 overflow-y-auto w-full">

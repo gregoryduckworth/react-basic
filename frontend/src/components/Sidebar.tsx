@@ -6,9 +6,12 @@ const Sidebar = () => {
     <nav>
       <ul className="space-y-2">
         <li>
-          <span className="font-semibold text-blue-700">
+          <a
+            href="/dashboard"
+            className="font-semibold text-blue-700 hover:underline focus:underline"
+          >
             {t("dashboard_title")}
-          </span>
+          </a>
         </li>
       </ul>
     </nav>

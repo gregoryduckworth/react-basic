@@ -1,20 +1,10 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import LogoutButton from "../components/LogoutButton";
 import LoggedInLayout from "../components/LoggedInLayout";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 
 function Dashboard() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const { logout } = useAuth();
-
-  function handleLogout() {
-    logout();
-    navigate("/login");
-  }
 
   return (
     <LoggedInLayout sidebar={<Sidebar />} header={<Header />}>
