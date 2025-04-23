@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import LogoutButton from "../components/LogoutButton";
 
 function Dashboard() {
   const { t } = useTranslation();
@@ -24,13 +25,7 @@ function Dashboard() {
           </p>
         </header>
         <main className="w-full flex flex-col items-center gap-6">
-          <button
-            className="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 transition-colors"
-            onClick={handleLogout}
-            aria-label={t("logout")}
-          >
-            {t("logout")}
-          </button>
+          <LogoutButton onLogout={handleLogout} />
         </main>
       </div>
     </div>
