@@ -40,5 +40,6 @@
   "title": "Vite + React",
   "vite_logo_alt": "Vite logo",
   "auth_context_error": "useAuth must be used within AuthProvider",
-  "loading": "Loading..."
+  "loading": "Loading...",
+  "settings": "Settings"
 }

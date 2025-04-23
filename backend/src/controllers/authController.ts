@@ -10,7 +10,7 @@ export const register = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { email, password } = req.body;
+    const { email, password, first_name, last_name } = req.body;
     if (!email || !password) {
       res
         .status(400)
@@ -26,8 +26,8 @@ export const register = async (
     }
     const hashed = await bcrypt.hash(password, SALT_ROUNDS);
     const user = await prisma.user.create({
-      data: { email, password: hashed },
-      select: { id: true, email: true },
+      data: { email, password: hashed, first_name, last_name },
+      select: { id: true, email: true, first_name: true, last_name: true },
     });
     res.status(201).json({ user });
   } catch (err) {
@@ -58,7 +58,16 @@ export const login = async (
       res.status(401).json({ errorKey: "invalid_credentials", status: 401 });
       return;
     }
-    res.status(200).json({ user: { id: user.id, email: user.email } });
+    res
+      .status(200)
+      .json({
+        user: {
+          id: user.id,
+          email: user.email,
+          first_name: user.first_name,
+          last_name: user.last_name,
+        },
+      });
   } catch (err) {
     next(err);
   }

@@ -12,7 +12,7 @@ function Dashboard() {
         <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-700 text-center">
           {t("dashboard_title")}
         </h1>
-        <p className="text-gray-500 text-center max-w-xs sm:max-w-md text-base sm:text-lg">
+        <p className="text-blue-700 text-center max-w-xs sm:max-w-md text-base sm:text-lg">
           {t("dashboard_subtitle")}
         </p>
       </section>

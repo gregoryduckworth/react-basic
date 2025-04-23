@@ -10,6 +10,8 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -25,7 +27,12 @@ function Register() {
       await fetchApi("/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({
+          email,
+          password,
+          first_name: firstName,
+          last_name: lastName,
+        }),
       });
       setMessage(null);
       setLoading(false);
@@ -61,6 +68,32 @@ function Register() {
             onSubmit={handleRegister}
             aria-label={t("register_form_label")}
           >
+            <label htmlFor="firstName" className="sr-only">
+              {t("first_name", "First Name")}
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              className="border rounded px-3 py-2 w-full text-gray-900"
+              placeholder={t("first_name", "First Name")}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              autoComplete="given-name"
+            />
+            <label htmlFor="lastName" className="sr-only">
+              {t("last_name", "Last Name")}
+            </label>
+            <input
+              id="lastName"
+              type="text"
+              className="border rounded px-3 py-2 w-full text-gray-900"
+              placeholder={t("last_name", "Last Name")}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              autoComplete="family-name"
+            />
             <label htmlFor="email" className="sr-only">
               {t("email")}
             </label>
