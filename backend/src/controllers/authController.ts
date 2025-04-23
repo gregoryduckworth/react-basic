@@ -12,12 +12,16 @@ export const register = async (
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).json({ error: "Email and password are required." });
+      res
+        .status(400)
+        .json({ errorKey: "email_and_password_required", status: 400 });
       return;
     }
     const existing = await prisma.user.findUnique({ where: { email } });
     if (existing) {
-      res.status(409).json({ error: "Email already registered." });
+      res
+        .status(409)
+        .json({ errorKey: "email_already_registered", status: 409 });
       return;
     }
     const hashed = await bcrypt.hash(password, SALT_ROUNDS);
@@ -39,17 +43,19 @@ export const login = async (
   try {
     const { email, password } = req.body;
     if (!email || !password) {
-      res.status(400).json({ error: "Email and password are required." });
+      res
+        .status(400)
+        .json({ errorKey: "email_and_password_required", status: 400 });
       return;
     }
     const user = await prisma.user.findUnique({ where: { email } });
     if (!user) {
-      res.status(401).json({ error: "Invalid credentials." });
+      res.status(401).json({ errorKey: "invalid_credentials", status: 401 });
       return;
     }
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
-      res.status(401).json({ error: "Invalid credentials." });
+      res.status(401).json({ errorKey: "invalid_credentials", status: 401 });
       return;
     }
     res.status(200).json({ user: { id: user.id, email: user.email } });

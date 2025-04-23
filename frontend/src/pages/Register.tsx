@@ -28,7 +28,9 @@ function Register() {
       setMessage(null);
       navigate("/login");
     } catch (err: any) {
-      setMessage(err?.message || t("register_failed"));
+      const errorKey =
+        err?.message?.errorKey || err?.errorKey || err?.message || err;
+      setMessage(t(errorKey));
     }
   }
 
@@ -81,7 +83,7 @@ function Register() {
             <Button type="submit">{t("register")}</Button>
           </form>
           {message && (
-            <div className="text-green-600 font-medium text-center">
+            <div className="text-red-600 font-medium text-center">
               {message}
             </div>
           )}

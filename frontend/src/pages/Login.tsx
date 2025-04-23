@@ -62,7 +62,7 @@ function Login() {
             <Button type="submit">{t("login")}</Button>
           </form>
           {message && (
-            <div className="text-green-600 font-medium text-center">
+            <div className="text-red-600 font-medium text-center">
               {message}
             </div>
           )}
