@@ -18,15 +18,15 @@ services:
       - ./backend:/app
       - backend-node-modules:/app/node_modules
     ports:
-      - 4000:4000
+      - 4001:4001
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
-      - PORT=4000
+      - PORT=4001
     depends_on:
       - postgres
     command: sh -c "npm install && npx prisma generate && npx prisma migrate deploy && npm run dev"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:4001/health"]
       interval: 10s
       timeout: 10s
       retries: 10
@@ -37,9 +37,9 @@ services:
     volumes:
       - ./frontend:/app
     ports:
-      - 3001:5173
+      - 5173:5173
     environment:
-      - VITE_API_URL=http://localhost:4000
+      - VITE_API_URL=http://localhost:4001
     command: sh -c "npm install && npm run dev"
     depends_on:
       backend:
