@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "./components/Button";
 import { fetchApi } from "./services/api";
 import reactLogo from "./assets/react.svg";
@@ -7,14 +8,15 @@ import "./App.css";
 
 function App() {
   const [apiCall, setApiCall] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   async function checkHealth() {
     setApiCall(null);
     try {
       await fetchApi("/health");
-      setApiCall("API is healthy!");
+      setApiCall(t("api_healthy"));
     } catch (err) {
-      setApiCall("Could not reach backend API.");
+      setApiCall(t("api_unreachable"));
     }
   }
 
@@ -31,11 +33,11 @@ function App() {
               <img
                 src={viteLogo}
                 className="h-10 w-10 sm:h-12 sm:w-12 drop-shadow-md hover:scale-110 transition-transform"
-                alt="Vite logo"
+                alt={t("vite_logo_alt")}
               />
             </a>
             <span className="text-xl sm:text-2xl font-semibold text-gray-400">
-              +
+              {t("plus")}
             </span>
             <a
               href="https://react.dev"
@@ -45,23 +47,20 @@ function App() {
               <img
                 src={reactLogo}
                 className="h-10 w-10 sm:h-12 sm:w-12 drop-shadow-md hover:scale-110 transition-transform"
-                alt="React logo"
+                alt={t("react_logo_alt")}
               />
             </a>
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold text-blue-700 tracking-tight text-center">
-            Vite + React
+            {t("title")}
           </h1>
           <p className="text-gray-500 text-center max-w-xs sm:max-w-md text-base sm:text-lg">
-            A modern starter powered by{" "}
-            <span className="font-semibold text-blue-600">Vite</span> and{" "}
-            <span className="font-semibold text-sky-600">React</span> with
-            Tailwind CSS.
+            {t("subtitle_simple")}
           </p>
         </header>
         <main className="w-full max-w-md bg-white shadow-xl rounded-2xl p-4 sm:p-8 flex flex-col items-center gap-6">
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 w-full justify-center">
-            <Button onClick={checkHealth}>Check API Health</Button>
+            <Button onClick={checkHealth}>{t("check_api_health")}</Button>
           </div>
           {apiCall && (
             <div className="text-green-600 font-medium text-center break-words">
@@ -69,12 +68,11 @@ function App() {
             </div>
           )}
           <p className="text-gray-400 text-xs sm:text-sm text-center">
-            Edit <code className="bg-gray-100 px-1 rounded">src/App.tsx</code>{" "}
-            and save to test HMR
+            {t("edit_and_save_simple")}
           </p>
         </main>
         <footer className="mt-8 sm:mt-10 text-gray-400 text-xs text-center px-2">
-          Click on the Vite and React logos to learn more
+          {t("footer")}
         </footer>
       </div>
     </div>

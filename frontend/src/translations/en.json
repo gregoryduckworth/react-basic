@@ -1,0 +1,12 @@
+{
+  "vite_logo_alt": "Vite logo",
+  "react_logo_alt": "React logo",
+  "plus": "+",
+  "title": "Vite + React",
+  "subtitle_simple": "A modern starter powered by Vite and React with Tailwind CSS.",
+  "check_api_health": "Check API Health",
+  "api_healthy": "API is healthy!",
+  "api_unreachable": "Could not reach backend API.",
+  "edit_and_save_simple": "Edit src/App.tsx and save to test HMR",
+  "footer": "Click on the Vite and React logos to learn more"
+}
