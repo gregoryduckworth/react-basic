@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
-import LoggedOutLayout from "../components/layout/LoggedOutLayout";
+import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
 
 function ForgottenPassword() {
   const { t } = useTranslation();

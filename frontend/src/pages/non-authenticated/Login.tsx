@@ -1,55 +1,38 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { fetchApi } from "../services/api";
+import { useAuth } from "../../context/AuthContext";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
-import { useTheme } from "@mui/material/styles";
-import LoggedOutLayout from "../components/layout/LoggedOutLayout";
+import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
 
-function Register() {
+function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const theme = useTheme();
+  const { login } = useAuth();
+  const location = useLocation();
 
-  async function handleRegister(e: React.FormEvent) {
+  const registered = location.state && location.state.registered;
+
+  async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      setMessage(t("passwords_no_match"));
+    setLoading(true);
+    const ok = await login(email, password);
+    setLoading(false);
+    if (!ok) {
+      setMessage(t("login_failed"));
       return;
     }
-    setLoading(true);
-    try {
-      await fetchApi("/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          first_name: firstName,
-          last_name: lastName,
-        }),
-      });
-      setMessage(null);
-      setLoading(false);
-      navigate("/login", { state: { registered: true } });
-    } catch (err: any) {
-      setLoading(false);
-      const errorKey =
-        err?.message?.errorKey || err?.errorKey || err?.message || err;
-      setMessage(t(errorKey));
-    }
+    setMessage(null);
+    navigate("/dashboard");
   }
 
   return (
@@ -77,10 +60,10 @@ function Register() {
             fontWeight={800}
             align="center"
           >
-            {t("register_title")}
+            {t("login_title")}
           </Typography>
           <Typography color="text.secondary" align="center">
-            {t("register_subtitle")}
+            {t("login_subtitle")}
           </Typography>
         </Box>
         <Paper
@@ -96,37 +79,20 @@ function Register() {
             gap: 3,
           }}
         >
+          {registered && (
+            <Typography color="success.main" align="center">
+              {t("register_success")}
+            </Typography>
+          )}
           <Box
             component="form"
             display="flex"
             flexDirection="column"
             gap={2}
             width="100%"
-            onSubmit={handleRegister}
-            aria-label={t("register_form_label")}
+            onSubmit={handleLogin}
+            aria-label={t("login_form_label")}
           >
-            <TextField
-              id="firstName"
-              type="text"
-              label={t("first_name", "First Name")}
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-              required
-              autoComplete="given-name"
-              fullWidth
-              size="medium"
-            />
-            <TextField
-              id="lastName"
-              type="text"
-              label={t("last_name", "Last Name")}
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-              required
-              autoComplete="family-name"
-              fullWidth
-              size="medium"
-            />
             <TextField
               id="email"
               type="email"
@@ -145,18 +111,7 @@ function Register() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              autoComplete="new-password"
-              fullWidth
-              size="medium"
-            />
-            <TextField
-              id="confirmPassword"
-              type="password"
-              label={t("confirm_password")}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              autoComplete="new-password"
+              autoComplete="current-password"
               fullWidth
               size="medium"
             />
@@ -166,16 +121,11 @@ function Register() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading ? t("registering") : t("register")}
+              {loading ? t("logging_in") : t("login")}
             </Button>
           </Box>
           {message && (
-            <Typography
-              color="error"
-              fontWeight={500}
-              align="center"
-              role="alert"
-            >
+            <Typography color="error" align="center" role="alert">
               {message}
             </Typography>
           )}
@@ -186,8 +136,11 @@ function Register() {
             width="100%"
             textAlign="center"
           >
-            <Link href="/login" underline="hover" color="primary" fontSize={14}>
-              {t("login_link")}
+            <Link href="/forgotten-password" underline="hover" color="primary">
+              {t("forgot_password_link")}
+            </Link>
+            <Link href="/register" underline="hover" color="primary">
+              {t("register_link")}
             </Link>
           </Box>
         </Paper>
@@ -196,4 +149,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default Login;

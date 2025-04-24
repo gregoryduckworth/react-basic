@@ -1,38 +1,55 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "@mui/material/Button";
-import { useAuth } from "../context/AuthContext";
+import { fetchApi } from "../../services/api";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
-import LoggedOutLayout from "../components/layout/LoggedOutLayout";
+import { useTheme } from "@mui/material/styles";
+import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
 
-function Login() {
+function Register() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { login } = useAuth();
-  const location = useLocation();
+  const theme = useTheme();
 
-  const registered = location.state && location.state.registered;
-
-  async function handleLogin(e: React.FormEvent) {
+  async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
-    const ok = await login(email, password);
-    setLoading(false);
-    if (!ok) {
-      setMessage(t("login_failed"));
+    if (password !== confirmPassword) {
+      setMessage(t("passwords_no_match"));
       return;
     }
-    setMessage(null);
-    navigate("/dashboard");
+    setLoading(true);
+    try {
+      await fetchApi("/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          first_name: firstName,
+          last_name: lastName,
+        }),
+      });
+      setMessage(null);
+      setLoading(false);
+      navigate("/login", { state: { registered: true } });
+    } catch (err: any) {
+      setLoading(false);
+      const errorKey =
+        err?.message?.errorKey || err?.errorKey || err?.message || err;
+      setMessage(t(errorKey));
+    }
   }
 
   return (
@@ -60,10 +77,10 @@ function Login() {
             fontWeight={800}
             align="center"
           >
-            {t("login_title")}
+            {t("register_title")}
           </Typography>
           <Typography color="text.secondary" align="center">
-            {t("login_subtitle")}
+            {t("register_subtitle")}
           </Typography>
         </Box>
         <Paper
@@ -79,20 +96,37 @@ function Login() {
             gap: 3,
           }}
         >
-          {registered && (
-            <Typography color="success.main" align="center">
-              {t("register_success")}
-            </Typography>
-          )}
           <Box
             component="form"
             display="flex"
             flexDirection="column"
             gap={2}
             width="100%"
-            onSubmit={handleLogin}
-            aria-label={t("login_form_label")}
+            onSubmit={handleRegister}
+            aria-label={t("register_form_label")}
           >
+            <TextField
+              id="firstName"
+              type="text"
+              label={t("first_name", "First Name")}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
+              required
+              autoComplete="given-name"
+              fullWidth
+              size="medium"
+            />
+            <TextField
+              id="lastName"
+              type="text"
+              label={t("last_name", "Last Name")}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
+              autoComplete="family-name"
+              fullWidth
+              size="medium"
+            />
             <TextField
               id="email"
               type="email"
@@ -111,7 +145,18 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
-              autoComplete="current-password"
+              autoComplete="new-password"
+              fullWidth
+              size="medium"
+            />
+            <TextField
+              id="confirmPassword"
+              type="password"
+              label={t("confirm_password")}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+              autoComplete="new-password"
               fullWidth
               size="medium"
             />
@@ -121,11 +166,16 @@ function Login() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading ? t("logging_in") : t("login")}
+              {loading ? t("registering") : t("register")}
             </Button>
           </Box>
           {message && (
-            <Typography color="error" align="center" role="alert">
+            <Typography
+              color="error"
+              fontWeight={500}
+              align="center"
+              role="alert"
+            >
               {message}
             </Typography>
           )}
@@ -136,11 +186,8 @@ function Login() {
             width="100%"
             textAlign="center"
           >
-            <Link href="/forgotten-password" underline="hover" color="primary">
-              {t("forgot_password_link")}
-            </Link>
-            <Link href="/register" underline="hover" color="primary">
-              {t("register_link")}
+            <Link href="/login" underline="hover" color="primary">
+              {t("login_link")}
             </Link>
           </Box>
         </Paper>
@@ -149,4 +196,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;

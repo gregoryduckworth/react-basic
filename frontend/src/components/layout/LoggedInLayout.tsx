@@ -20,13 +20,10 @@ const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
       bgcolor={theme.palette.background.default}
       color={theme.palette.text.primary}
     >
-      {/* Header at the top */}
       <Box position="sticky" top={0} zIndex={1100} width="100%">
         {header}
       </Box>
-      {/* Sidebar and content row */}
       <Box display="flex" flexDirection="row" height="calc(100vh - 64px)">
-        {/* Sidebar on the left */}
         {sidebar && (
           <Box
             sx={{
@@ -41,7 +38,6 @@ const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
             {sidebar}
           </Box>
         )}
-        {/* Main content */}
         <Box
           component="main"
           flex={1}
