@@ -1,15 +1,9 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import Button from "@mui/material/Button";
-import { fetchApi } from "../../services/api";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
-import { useTheme } from "@mui/material/styles";
+import { Button, Box, Paper, Typography, TextField, Link } from "@mui/material";
 import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
+import { fetchApi } from "../../services/api";
 
 function Register() {
   const { t } = useTranslation();
@@ -21,7 +15,6 @@ function Register() {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const theme = useTheme();
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();

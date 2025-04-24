@@ -1,6 +1,5 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import { useTheme } from "@mui/material/styles";
+import { useTheme, Box } from "@mui/material";
 
 interface LoggedInLayoutProps {
   sidebar?: React.ReactNode;

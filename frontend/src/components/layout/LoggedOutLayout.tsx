@@ -1,9 +1,7 @@
 import React from "react";
-import Box from "@mui/material/Box";
 import { useTheme } from "@mui/material/styles";
-import Link from "@mui/material/Link";
+import { AppBar, Toolbar, Typography, Box, Link } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { AppBar, Toolbar, Typography } from "@mui/material";
 
 interface LoggedOutLayoutProps {
   children: React.ReactNode;

@@ -1,13 +1,8 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
-import Button from "@mui/material/Button";
+import { Button, Box, Paper, Typography, TextField, Link } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
-import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
-import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
-import Link from "@mui/material/Link";
 import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
 
 function Login() {
