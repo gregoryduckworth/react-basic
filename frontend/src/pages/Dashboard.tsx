@@ -1,17 +1,19 @@
 import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const Dashboard = () => {
   const { t } = useTranslation();
 
   return (
-    <section className="flex flex-col items-center gap-4">
-      <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-700 text-center">
+    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+      <Typography variant="h4" color="primary" fontWeight={800} align="center">
         {t("dashboard_title")}
-      </h1>
-      <p className="text-blue-700 text-center max-w-xs sm:max-w-md text-base sm:text-lg">
+      </Typography>
+      <Typography color="primary" align="center">
         {t("dashboard_subtitle")}
-      </p>
-    </section>
+      </Typography>
+    </Box>
   );
 };
 

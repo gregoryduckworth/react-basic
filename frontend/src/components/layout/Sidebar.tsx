@@ -1,23 +1,32 @@
 import React, { memo } from "react";
 import { useTranslation } from "react-i18next";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
+import Typography from "@mui/material/Typography";
 
 const Sidebar = () => {
   const { t } = useTranslation();
   return (
     <nav aria-label="Main sidebar navigation">
-      <ul className="space-y-2">
-        <li>
-          <a
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton
+            component="a"
             href="/dashboard"
-            className="font-semibold text-blue-700 hover:underline focus:underline"
-            aria-current={
-              window.location.pathname === "/dashboard" ? "page" : undefined
-            }
+            selected={window.location.pathname === "/dashboard"}
           >
-            {t("dashboard_title")}
-          </a>
-        </li>
-      </ul>
+            <ListItemText
+              primary={
+                <Typography fontWeight={600} color="primary">
+                  {t("dashboard_title")}
+                </Typography>
+              }
+            />
+          </ListItemButton>
+        </ListItem>
+      </List>
     </nav>
   );
 };

@@ -1,4 +1,6 @@
 import React from "react";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 
 interface LoggedInLayoutProps {
   sidebar?: React.ReactNode;
@@ -12,19 +14,48 @@ const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
   children,
 }) => {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-blue-50 to-blue-100 w-full">
-      <header className="h-16 flex items-center px-4 bg-white shadow z-10 sticky top-0 w-full">
+    <Box
+      minHeight="100vh"
+      display="flex"
+      flexDirection="column"
+      width="100%"
+      bgcolor="#f0f4fa"
+    >
+      <Paper
+        elevation={2}
+        square
+        sx={{
+          height: 64,
+          display: "flex",
+          alignItems: "center",
+          px: 2,
+          position: "sticky",
+          top: 0,
+          zIndex: 10,
+        }}
+      >
         {header}
-      </header>
-      <div className="flex flex-1 overflow-hidden w-full">
-        <aside className="w-64 bg-white border-r shadow-sm hidden md:block p-4 h-full min-h-[calc(100vh-4rem)]">
+      </Paper>
+      <Box display="flex" flex={1} overflow="hidden" width="100%">
+        <Paper
+          elevation={1}
+          square
+          sx={{
+            width: 256,
+            display: { xs: "none", md: "block" },
+            p: 2,
+            minHeight: "calc(100vh - 64px)",
+            borderRight: 1,
+            borderColor: "divider",
+          }}
+        >
           {sidebar}
-        </aside>
-        <main className="flex-1 p-4 md:p-8 overflow-y-auto w-full">
+        </Paper>
+        <Box flex={1} p={{ xs: 2, md: 4 }} overflow="auto" width="100%">
           {children}
-        </main>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

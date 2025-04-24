@@ -1,37 +1,41 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 const Profile = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
 
   return (
-    <section className="flex flex-col items-center gap-4">
-      <h1 className="text-2xl sm:text-4xl font-extrabold text-blue-700 text-center">
+    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
+      <Typography variant="h4" color="primary" fontWeight={800} align="center">
         {t("profile_title", "Profile")}
-      </h1>
-      <div className="text-blue-700 text-center max-w-xs sm:max-w-md text-base sm:text-lg">
-        <div className="space-y-2">
-          <div>
-            <span className="font-semibold">
+      </Typography>
+      <Box color="primary.main" textAlign="center" maxWidth={400}>
+        <Box display="flex" flexDirection="column" gap={1}>
+          <Box>
+            <Typography fontWeight={600} component="span">
               {t("first_name", "First Name")}:
-            </span>{" "}
+            </Typography>{" "}
             {user?.first_name || "-"}
-          </div>
-          <div>
-            <span className="font-semibold">
+          </Box>
+          <Box>
+            <Typography fontWeight={600} component="span">
               {t("last_name", "Last Name")}:
-            </span>{" "}
+            </Typography>{" "}
             {user?.last_name || "-"}
-          </div>
-          <div>
-            <span className="font-semibold">{t("email", "Email")}:</span>{" "}
+          </Box>
+          <Box>
+            <Typography fontWeight={600} component="span">
+              {t("email", "Email")}:
+            </Typography>{" "}
             {user?.email || "-"}
-          </div>
-        </div>
-      </div>
-    </section>
+          </Box>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

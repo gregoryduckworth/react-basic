@@ -1,7 +1,11 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../components/common/Button";
-import "../App.css";
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import TextField from "@mui/material/TextField";
+import Link from "@mui/material/Link";
 
 function ForgottenPassword() {
   const { t } = useTranslation();
@@ -19,61 +23,125 @@ function ForgottenPassword() {
   }
 
   return (
-    <div className="h-screen w-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 p-2 sm:p-4">
-      <a
+    <Box
+      minHeight="100vh"
+      width="100vw"
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+      bgcolor="#f0f4fa"
+      p={2}
+    >
+      <Link
         href="/"
-        className="fixed top-4 left-4 text-blue-700 font-bold text-lg hover:underline z-50 bg-white/80 px-3 py-1 rounded shadow"
+        underline="hover"
+        sx={{
+          position: "fixed",
+          top: 16,
+          left: 16,
+          zIndex: 50,
+          bgcolor: "white",
+          px: 2,
+          py: 0.5,
+          borderRadius: 1,
+          boxShadow: 1,
+          fontWeight: 700,
+          color: "primary.main",
+          fontSize: 20,
+        }}
       >
         {t("homepage")}
-      </a>
-      <div className="w-full max-w-2xl flex flex-col items-center">
-        <header className="w-full flex flex-col items-center gap-4 mb-8 px-2 sm:px-4">
-          <h1 className="text-3xl sm:text-5xl font-extrabold text-blue-700 tracking-tight text-center">
+      </Link>
+      <Box
+        width="100%"
+        maxWidth={700}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+      >
+        <Box
+          component="header"
+          width="100%"
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          gap={2}
+          mb={4}
+          px={2}
+        >
+          <Typography
+            variant="h3"
+            color="primary"
+            fontWeight={800}
+            align="center"
+          >
             {t("forgotten_title")}
-          </h1>
-          <p className="text-gray-500 text-center max-w-xs sm:max-w-md text-base sm:text-lg">
+          </Typography>
+          <Typography color="text.secondary" align="center">
             {t("forgotten_subtitle")}
-          </p>
-        </header>
-        <main className="w-full max-w-md bg-white shadow-xl rounded-2xl p-4 sm:p-8 flex flex-col items-center gap-6">
-          <form
-            className="flex flex-col gap-4 w-full"
+          </Typography>
+        </Box>
+        <Paper
+          elevation={3}
+          sx={{
+            width: "100%",
+            maxWidth: 400,
+            p: { xs: 2, sm: 4 },
+            borderRadius: 4,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 3,
+          }}
+        >
+          <Box
+            component="form"
+            display="flex"
+            flexDirection="column"
+            gap={2}
+            width="100%"
             onSubmit={handleForgotten}
             aria-label={t("forgotten_form_label")}
           >
-            <label htmlFor="email" className="sr-only">
-              {t("email")}
-            </label>
-            <input
+            <TextField
               id="email"
               type="email"
-              className="border rounded px-3 py-2 w-full text-gray-900"
-              placeholder={t("email")}
+              label={t("email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               autoComplete="username"
+              fullWidth
+              size="medium"
             />
             <Button type="submit" disabled={loading} aria-busy={loading}>
               {loading ? t("sending") : t("send_reset_link")}
             </Button>
-          </form>
+          </Box>
           {message && (
-            <div
-              className="text-green-600 font-medium text-center"
+            <Typography
+              color="success.main"
+              fontWeight={500}
+              align="center"
               role="status"
             >
               {message}
-            </div>
+            </Typography>
           )}
-          <div className="flex flex-col gap-2 w-full text-center">
-            <a href="/login" className="text-blue-500 hover:underline text-sm">
+          <Box
+            display="flex"
+            flexDirection="column"
+            gap={1}
+            width="100%"
+            textAlign="center"
+          >
+            <Link href="/login" underline="hover" color="primary" fontSize={14}>
               {t("login_link")}
-            </a>
-          </div>
-        </main>
-      </div>
-    </div>
+            </Link>
+          </Box>
+        </Paper>
+      </Box>
+    </Box>
   );
 }
 

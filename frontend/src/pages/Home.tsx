@@ -1,31 +1,65 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 
 const Home = () => {
   const { t } = useTranslation();
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen min-w-full bg-gradient-to-br from-blue-50 to-blue-100">
-      <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
-        <h1 className="text-4xl font-extrabold text-blue-700 mb-2 text-center">
+    <Box
+      minHeight="100vh"
+      minWidth="100vw"
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      bgcolor="#f0f4fa"
+    >
+      <Paper
+        elevation={3}
+        sx={{
+          borderRadius: 4,
+          p: 4,
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 3,
+        }}
+      >
+        <Typography
+          variant="h2"
+          color="primary"
+          fontWeight={800}
+          mb={1}
+          align="center"
+        >
           {t("title", "Welcome")}
-        </h1>
-        <p className="text-blue-500 text-center mb-4">{t("subtitle_simple")}</p>
-        <div className="flex gap-4">
-          <a
+        </Typography>
+        <Typography color="primary" align="center" mb={2}>
+          {t("subtitle_simple")}
+        </Typography>
+        <Box display="flex" gap={2}>
+          <Button
             href="/login"
-            className="px-6 py-2 rounded bg-blue-600 text-white font-semibold shadow hover:bg-blue-700 transition-colors"
+            variant="contained"
+            color="primary"
+            size="large"
           >
             {t("login")}
-          </a>
-          <a
+          </Button>
+          <Button
             href="/register"
-            className="px-6 py-2 rounded bg-green-600 text-white font-semibold shadow hover:bg-green-700 transition-colors"
+            variant="contained"
+            color="success"
+            size="large"
           >
             {t("register")}
-          </a>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Box>
+      </Paper>
+    </Box>
   );
 };
 
