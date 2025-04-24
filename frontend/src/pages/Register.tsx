@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
 
 function Register() {
   const { t } = useTranslation();
@@ -19,6 +20,7 @@ function Register() {
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
@@ -56,7 +58,7 @@ function Register() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bgcolor="#f0f4fa"
+      bgcolor={theme.palette.background.default}
       p={2}
     >
       <Link
@@ -67,13 +69,13 @@ function Register() {
           top: 16,
           left: 16,
           zIndex: 50,
-          bgcolor: "white",
+          bgcolor: theme.palette.background.paper,
           px: 2,
           py: 0.5,
           borderRadius: 1,
           boxShadow: 1,
           fontWeight: 700,
-          color: "primary.main",
+          color: theme.palette.primary.main,
           fontSize: 20,
         }}
       >
@@ -185,7 +187,12 @@ function Register() {
               fullWidth
               size="medium"
             />
-            <Button type="submit" disabled={loading} aria-busy={loading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading}
+              aria-busy={loading}
+            >
               {loading ? t("registering") : t("register")}
             </Button>
           </Box>

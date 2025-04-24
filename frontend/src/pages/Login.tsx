@@ -8,6 +8,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
+import { useTheme } from "@mui/material/styles";
 
 function Login() {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const location = useLocation();
+  const theme = useTheme();
 
   const registered = location.state && location.state.registered;
 
@@ -41,29 +43,9 @@ function Login() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bgcolor="#f0f4fa"
+      bgcolor={theme.palette.background.default}
       p={2}
     >
-      <Link
-        href="/"
-        underline="hover"
-        sx={{
-          position: "fixed",
-          top: 16,
-          left: 16,
-          zIndex: 50,
-          bgcolor: "white",
-          px: 2,
-          py: 0.5,
-          borderRadius: 1,
-          boxShadow: 1,
-          fontWeight: 700,
-          color: "primary.main",
-          fontSize: 20,
-        }}
-      >
-        {t("homepage")}
-      </Link>
       <Box
         width="100%"
         maxWidth={700}
@@ -107,7 +89,7 @@ function Login() {
           }}
         >
           {registered && (
-            <Typography color="success.main" fontWeight={500} align="center">
+            <Typography color="success.main" align="center">
               {t("register_success")}
             </Typography>
           )}
@@ -142,17 +124,17 @@ function Login() {
               fullWidth
               size="medium"
             />
-            <Button type="submit" disabled={loading} aria-busy={loading}>
+            <Button
+              type="submit"
+              variant="contained"
+              disabled={loading}
+              aria-busy={loading}
+            >
               {loading ? t("logging_in") : t("login")}
             </Button>
           </Box>
           {message && (
-            <Typography
-              color="error"
-              fontWeight={500}
-              align="center"
-              role="alert"
-            >
+            <Typography color="error" align="center" role="alert">
               {message}
             </Typography>
           )}
@@ -163,20 +145,10 @@ function Login() {
             width="100%"
             textAlign="center"
           >
-            <Link
-              href="/forgotten-password"
-              underline="hover"
-              color="primary"
-              fontSize={14}
-            >
+            <Link href="/forgotten-password" underline="hover" color="primary">
               {t("forgot_password_link")}
             </Link>
-            <Link
-              href="/register"
-              underline="hover"
-              color="primary"
-              fontSize={14}
-            >
+            <Link href="/register" underline="hover" color="primary">
               {t("register_link")}
             </Link>
           </Box>

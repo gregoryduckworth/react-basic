@@ -6,8 +6,16 @@ const Dashboard = () => {
   const { t } = useTranslation();
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-      <Typography variant="h4" color="primary" fontWeight={800} align="center">
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      flex={1}
+      height="100%"
+      gap={2}
+    >
+      <Typography variant="h4" color="primary" align="center">
         {t("dashboard_title")}
       </Typography>
       <Typography color="primary" align="center">

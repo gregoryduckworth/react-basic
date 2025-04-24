@@ -1,17 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import TextField from "@mui/material/TextField";
+import { useTheme } from "@mui/material/styles";
 
 function ForgottenPassword() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const theme = useTheme();
 
   function handleForgotten(e: React.FormEvent) {
     e.preventDefault();
@@ -29,29 +31,8 @@ function ForgottenPassword() {
       display="flex"
       alignItems="center"
       justifyContent="center"
-      bgcolor="#f0f4fa"
-      p={2}
+      bgcolor={theme.palette.background.default}
     >
-      <Link
-        href="/"
-        underline="hover"
-        sx={{
-          position: "fixed",
-          top: 16,
-          left: 16,
-          zIndex: 50,
-          bgcolor: "white",
-          px: 2,
-          py: 0.5,
-          borderRadius: 1,
-          boxShadow: 1,
-          fontWeight: 700,
-          color: "primary.main",
-          fontSize: 20,
-        }}
-      >
-        {t("homepage")}
-      </Link>
       <Box
         width="100%"
         maxWidth={700}
@@ -104,7 +85,6 @@ function ForgottenPassword() {
             aria-label={t("forgotten_form_label")}
           >
             <TextField
-              id="email"
               type="email"
               label={t("email")}
               value={email}
@@ -114,17 +94,17 @@ function ForgottenPassword() {
               fullWidth
               size="medium"
             />
-            <Button type="submit" disabled={loading} aria-busy={loading}>
+            <Button
+              type="submit"
+              disabled={loading}
+              aria-busy={loading}
+              variant="contained"
+            >
               {loading ? t("sending") : t("send_reset_link")}
             </Button>
           </Box>
           {message && (
-            <Typography
-              color="success.main"
-              fontWeight={500}
-              align="center"
-              role="status"
-            >
+            <Typography color="success.main" align="center" role="alert">
               {message}
             </Typography>
           )}
@@ -135,7 +115,7 @@ function ForgottenPassword() {
             width="100%"
             textAlign="center"
           >
-            <Link href="/login" underline="hover" color="primary" fontSize={14}>
+            <Link href="/login" underline="hover" color="primary">
               {t("login_link")}
             </Link>
           </Box>

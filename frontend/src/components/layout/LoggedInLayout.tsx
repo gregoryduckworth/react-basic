@@ -1,6 +1,6 @@
 import React from "react";
 import Box from "@mui/material/Box";
-import Paper from "@mui/material/Paper";
+import { useTheme } from "@mui/material/styles";
 
 interface LoggedInLayoutProps {
   sidebar?: React.ReactNode;
@@ -13,45 +13,46 @@ const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
   header,
   children,
 }) => {
+  const theme = useTheme();
   return (
     <Box
       minHeight="100vh"
-      display="flex"
-      flexDirection="column"
-      width="100%"
-      bgcolor="#f0f4fa"
+      bgcolor={theme.palette.background.default}
+      color={theme.palette.text.primary}
     >
-      <Paper
-        elevation={2}
-        square
-        sx={{
-          height: 64,
-          display: "flex",
-          alignItems: "center",
-          px: 2,
-          position: "sticky",
-          top: 0,
-          zIndex: 10,
-        }}
-      >
+      {/* Header at the top */}
+      <Box position="sticky" top={0} zIndex={1100} width="100%">
         {header}
-      </Paper>
-      <Box display="flex" flex={1} overflow="hidden" width="100%">
-        <Paper
-          elevation={1}
-          square
-          sx={{
-            width: 256,
-            display: { xs: "none", md: "block" },
-            p: 2,
-            minHeight: "calc(100vh - 64px)",
-            borderRight: 1,
-            borderColor: "divider",
-          }}
+      </Box>
+      {/* Sidebar and content row */}
+      <Box display="flex" flexDirection="row" height="calc(100vh - 64px)">
+        {/* Sidebar on the left */}
+        {sidebar && (
+          <Box
+            sx={{
+              width: { xs: 0, sm: 200, md: 240 },
+              minWidth: { sm: 200, md: 240 },
+              bgcolor: theme.palette.grey[200],
+              display: { xs: "none", sm: "block" },
+              height: "100%",
+              borderRight: `1px solid ${theme.palette.divider}`,
+            }}
+          >
+            {sidebar}
+          </Box>
+        )}
+        {/* Main content */}
+        <Box
+          component="main"
+          flex={1}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="flex-start"
+          p={{ xs: 2, md: 4 }}
+          height="100%"
+          overflow="auto"
         >
-          {sidebar}
-        </Paper>
-        <Box flex={1} p={{ xs: 2, md: 4 }} overflow="auto" width="100%">
           {children}
         </Box>
       </Box>

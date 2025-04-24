@@ -10,27 +10,21 @@ const Profile = () => {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-      <Typography variant="h4" color="primary" fontWeight={800} align="center">
+      <Typography variant="h4" color="primary" align="center">
         {t("profile_title", "Profile")}
       </Typography>
       <Box color="primary.main" textAlign="center" maxWidth={400}>
         <Box display="flex" flexDirection="column" gap={1}>
           <Box>
-            <Typography fontWeight={600} component="span">
-              {t("first_name", "First Name")}:
-            </Typography>{" "}
+            <Typography component="span">{t("first_name")}:</Typography>{" "}
             {user?.first_name || "-"}
           </Box>
           <Box>
-            <Typography fontWeight={600} component="span">
-              {t("last_name", "Last Name")}:
-            </Typography>{" "}
+            <Typography component="span">{t("last_name")}:</Typography>{" "}
             {user?.last_name || "-"}
           </Box>
           <Box>
-            <Typography fontWeight={600} component="span">
-              {t("email", "Email")}:
-            </Typography>{" "}
+            <Typography component="span">{t("email")}:</Typography>{" "}
             {user?.email || "-"}
           </Box>
         </Box>
