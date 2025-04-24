@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
-import { useTheme } from "@mui/material/styles";
+import LoggedOutLayout from "../components/layout/LoggedOutLayout";
 
 function Login() {
   const { t } = useTranslation();
@@ -19,7 +19,6 @@ function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
   const location = useLocation();
-  const theme = useTheme();
 
   const registered = location.state && location.state.registered;
 
@@ -37,15 +36,7 @@ function Login() {
   }
 
   return (
-    <Box
-      minHeight="100vh"
-      width="100vw"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bgcolor={theme.palette.background.default}
-      p={2}
-    >
+    <LoggedOutLayout>
       <Box
         width="100%"
         maxWidth={700}
@@ -154,7 +145,7 @@ function Login() {
           </Box>
         </Paper>
       </Box>
-    </Box>
+    </LoggedOutLayout>
   );
 }
 

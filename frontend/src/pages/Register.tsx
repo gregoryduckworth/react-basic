@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import TextField from "@mui/material/TextField";
 import Link from "@mui/material/Link";
 import { useTheme } from "@mui/material/styles";
+import LoggedOutLayout from "../components/layout/LoggedOutLayout";
 
 function Register() {
   const { t } = useTranslation();
@@ -52,35 +53,7 @@ function Register() {
   }
 
   return (
-    <Box
-      minHeight="100vh"
-      width="100vw"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bgcolor={theme.palette.background.default}
-      p={2}
-    >
-      <Link
-        href="/"
-        underline="hover"
-        sx={{
-          position: "fixed",
-          top: 16,
-          left: 16,
-          zIndex: 50,
-          bgcolor: theme.palette.background.paper,
-          px: 2,
-          py: 0.5,
-          borderRadius: 1,
-          boxShadow: 1,
-          fontWeight: 700,
-          color: theme.palette.primary.main,
-          fontSize: 20,
-        }}
-      >
-        {t("homepage")}
-      </Link>
+    <LoggedOutLayout>
       <Box
         width="100%"
         maxWidth={700}
@@ -219,7 +192,7 @@ function Register() {
           </Box>
         </Paper>
       </Box>
-    </Box>
+    </LoggedOutLayout>
   );
 }
 

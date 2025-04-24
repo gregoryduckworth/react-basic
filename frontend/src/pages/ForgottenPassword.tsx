@@ -6,14 +6,13 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 import TextField from "@mui/material/TextField";
-import { useTheme } from "@mui/material/styles";
+import LoggedOutLayout from "../components/layout/LoggedOutLayout";
 
 function ForgottenPassword() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const theme = useTheme();
 
   function handleForgotten(e: React.FormEvent) {
     e.preventDefault();
@@ -25,14 +24,7 @@ function ForgottenPassword() {
   }
 
   return (
-    <Box
-      minHeight="100vh"
-      width="100vw"
-      display="flex"
-      alignItems="center"
-      justifyContent="center"
-      bgcolor={theme.palette.background.default}
-    >
+    <LoggedOutLayout>
       <Box
         width="100%"
         maxWidth={700}
@@ -121,7 +113,7 @@ function ForgottenPassword() {
           </Box>
         </Paper>
       </Box>
-    </Box>
+    </LoggedOutLayout>
   );
 }
 
