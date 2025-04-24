@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 const Home = () => {
   const { t } = useTranslation();
   return (
-    <div className="h-screen w-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100">
+    <div className="flex flex-col items-center justify-center min-h-screen min-w-full bg-gradient-to-br from-blue-50 to-blue-100">
       <div className="bg-white rounded-2xl shadow-xl p-8 flex flex-col items-center gap-6">
         <h1 className="text-4xl font-extrabold text-blue-700 mb-2 text-center">
           {t("title", "Welcome")}

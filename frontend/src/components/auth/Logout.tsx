@@ -1,13 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "./Button";
+import { useAuth } from "../../context/AuthContext";
 
-interface LogoutButtonProps {
-  onLogout: () => void;
-}
-
-function LogoutButton({ onLogout }: LogoutButtonProps) {
+function Logout() {
   const { t } = useTranslation();
+  const { logout } = useAuth();
   const [showConfirm, setShowConfirm] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -15,7 +12,7 @@ function LogoutButton({ onLogout }: LogoutButtonProps) {
   const handleCancel = () => setShowConfirm(false);
   const handleConfirm = () => {
     setShowConfirm(false);
-    onLogout();
+    logout();
   };
 
   useEffect(() => {
@@ -39,13 +36,18 @@ function LogoutButton({ onLogout }: LogoutButtonProps) {
 
   return (
     <>
-      <Button
-        onClick={handleClick}
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          handleClick();
+        }}
         aria-label={t("logout")}
-        className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition-colors font-semibold shadow"
+        className="text-blue-600 hover:underline focus:underline block text-left px-4 py-2"
+        style={{ background: "none", border: "none", padding: 0, margin: 0 }}
       >
         {t("logout")}
-      </Button>
+      </a>
       {showConfirm && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/40"
@@ -59,18 +61,18 @@ function LogoutButton({ onLogout }: LogoutButtonProps) {
           >
             <p className="text-gray-800 text-lg">{t("logout_confirm")}</p>
             <div className="flex gap-4">
-              <Button
+              <button
                 onClick={handleCancel}
-                className="bg-gray-300 text-gray-800 hover:bg-gray-400"
+                className="bg-gray-300 text-gray-800 hover:bg-gray-400 px-4 py-2 rounded"
               >
                 {t("cancel")}
-              </Button>
-              <Button
+              </button>
+              <button
                 onClick={handleConfirm}
-                className="bg-red-600 hover:bg-red-700"
+                className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded text-white"
               >
                 {t("confirm")}
-              </Button>
+              </button>
             </div>
           </div>
         </div>
@@ -79,4 +81,4 @@ function LogoutButton({ onLogout }: LogoutButtonProps) {
   );
 }
 
-export default LogoutButton;
+export default Logout;

@@ -6,7 +6,7 @@ import ForgottenPassword from "./pages/ForgottenPassword";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthContext";
-import { ProtectedRoute } from "./components/ProtectedRoute";
+import { ProtectedRoute } from "./components/auth/ProtectedRoute";
 
 function App() {
   return (

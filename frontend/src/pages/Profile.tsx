@@ -1,9 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../context/AuthContext";
-import LoggedInLayout from "../components/LoggedInLayout";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import LoggedInLayout from "../components/layout/LoggedInLayout";
+import Sidebar from "../components/layout/Sidebar";
+import Header from "../components/layout/Header";
 
 const Profile = () => {
   const { t } = useTranslation();

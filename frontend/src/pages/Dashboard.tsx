@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
-import LoggedInLayout from "../components/LoggedInLayout";
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
+import LoggedInLayout from "../components/layout/LoggedInLayout";
+import Sidebar from "../components/layout/Sidebar";
+import Header from "../components/layout/Header";
 
 function Dashboard() {
   const { t } = useTranslation();

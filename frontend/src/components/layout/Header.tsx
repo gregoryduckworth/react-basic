@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { useRef, useState } from "react";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import Logout from "../auth/Logout";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -10,11 +11,6 @@ const Header = () => {
   const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-  function handleLogout() {
-    logout();
-    navigate("/login");
-  }
 
   // Close dropdown on outside click
   React.useEffect(() => {
@@ -80,11 +76,8 @@ const Header = () => {
                 {t("profile", "Profile")}
               </div>
               <div className="border-t my-1 border-blue-700/30" />
-              <div
-                className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600 cursor-pointer font-semibold"
-                onClick={handleLogout}
-              >
-                {t("logout")}
+              <div className="block w-full text-left px-4 py-2">
+                <Logout />
               </div>
             </div>
           )}

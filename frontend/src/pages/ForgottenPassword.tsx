@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Button } from "../components/Button";
+import { Button } from "../components/common/Button";
 import "../App.css";
 
 function ForgottenPassword() {

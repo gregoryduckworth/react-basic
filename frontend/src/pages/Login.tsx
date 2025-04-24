@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
-import { Button } from "../components/Button";
+import { Button } from "../components/common/Button";
 import { useAuth } from "../context/AuthContext";
 import "../App.css";
 
