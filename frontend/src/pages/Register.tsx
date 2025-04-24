@@ -36,7 +36,7 @@ function Register() {
       });
       setMessage(null);
       setLoading(false);
-      navigate("/login");
+      navigate("/login", { state: { registered: true } });
     } catch (err: any) {
       setLoading(false);
       const errorKey =

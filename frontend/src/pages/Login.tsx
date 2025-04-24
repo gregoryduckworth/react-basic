@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../components/Button";
 import { useAuth } from "../context/AuthContext";
 import "../App.css";
@@ -13,6 +13,9 @@ function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
+  const location = useLocation();
+
+  const registered = location.state && location.state.registered;
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -45,6 +48,14 @@ function Login() {
           </p>
         </header>
         <main className="w-full max-w-md bg-white shadow-xl rounded-2xl p-4 sm:p-8 flex flex-col items-center gap-6">
+          {registered && (
+            <div
+              className="text-green-600 font-medium text-center"
+              role="status"
+            >
+              {t("register_success")}
+            </div>
+          )}
           <form
             className="flex flex-col gap-4 w-full"
             onSubmit={handleLogin}
