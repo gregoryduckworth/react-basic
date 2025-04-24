@@ -6,7 +6,7 @@ import ForgottenPassword from "./pages/ForgottenPassword";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import { AuthProvider } from "./context/AuthContext";
-import { ProtectedRoute } from "./components/auth/ProtectedRoute";
+import { AuthenticatedLayout } from "./components/auth/AuthenticatedLayout";
 
 function App() {
   return (
@@ -20,17 +20,17 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              <ProtectedRoute>
+              <AuthenticatedLayout>
                 <Dashboard />
-              </ProtectedRoute>
+              </AuthenticatedLayout>
             }
           />
           <Route
             path="/profile"
             element={
-              <ProtectedRoute>
+              <AuthenticatedLayout>
                 <Profile />
-              </ProtectedRoute>
+              </AuthenticatedLayout>
             }
           />
         </Routes>
