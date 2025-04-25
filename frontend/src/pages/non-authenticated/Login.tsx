@@ -4,12 +4,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Box, Paper, Typography, TextField, Link } from "@mui/material";
 import { useAuth } from "../../context/AuthContext";
 import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
+import type { ActionResult } from "@types";
 
 function Login() {
   const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -20,13 +21,14 @@ function Login() {
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
-    const ok = await login(email, password);
+    setError(null);
+    const result: ActionResult = await login(email, password);
     setLoading(false);
-    if (!ok) {
-      setMessage(t("login.login_failed"));
+    if (!result.success) {
+      setError(t(`error.${result.errorKey}`));
       return;
     }
-    setMessage(null);
+    setError(null);
     navigate("/dashboard");
   }
 
@@ -119,9 +121,9 @@ function Login() {
               {loading ? t("login.logging_in") : t("login.login")}
             </Button>
           </Box>
-          {message && (
+          {error && (
             <Typography color="error" align="center" role="alert">
-              {message}
+              {error}
             </Typography>
           )}
           <Box

@@ -1,22 +1,27 @@
 import { fetchApi } from "./api";
-import type { Auth } from "../../../types/api";
+import type {
+  RegisterRequest,
+  LoginRequest,
+  AuthResponse,
+  ErrorResponse,
+} from "@types";
 
-export async function register(
-  data: Auth.RegisterRequest
-): Promise<Auth.AuthResponse> {
-  return fetchApi<Auth.AuthResponse>("/register", {
+export async function register(data: RegisterRequest): Promise<AuthResponse> {
+  const response = await fetchApi<AuthResponse>("/register", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+  if ((response as ErrorResponse).errorKey) throw response;
+  return response as AuthResponse;
 }
 
-export async function login(
-  data: Auth.LoginRequest
-): Promise<Auth.AuthResponse> {
-  return fetchApi<Auth.AuthResponse>("/login", {
+export async function login(data: LoginRequest): Promise<AuthResponse> {
+  const response = await fetchApi<AuthResponse>("/login", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   });
+  if ((response as ErrorResponse).errorKey) throw response;
+  return response as AuthResponse;
 }

@@ -13,6 +13,7 @@ function Register() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [message, setMessage] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -20,9 +21,11 @@ function Register() {
     e.preventDefault();
     if (password !== confirmPassword) {
       setMessage(t("form.passwords_no_match"));
+      setError(null);
       return;
     }
     setLoading(true);
+    setError(null);
     try {
       await register({
         email,
@@ -35,9 +38,7 @@ function Register() {
       navigate("/login", { state: { registered: true } });
     } catch (err: any) {
       setLoading(false);
-      const errorKey =
-        err?.message?.errorKey || err?.errorKey || err?.message || err;
-      setMessage(t(`error.${errorKey}`));
+      setError(t(`error.${err?.errorKey || "email_already_registered"}`));
     }
   }
 
@@ -166,6 +167,16 @@ function Register() {
               role="alert"
             >
               {message}
+            </Typography>
+          )}
+          {error && (
+            <Typography
+              color="error"
+              fontWeight={500}
+              align="center"
+              role="alert"
+            >
+              {error}
             </Typography>
           )}
           <Box

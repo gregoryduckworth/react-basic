@@ -2,19 +2,12 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { login as loginApi } from "../services/auth";
-import type { Auth } from "../../../types/api";
-
-interface AuthContextType {
-  user: Auth.User | null;
-  login: (email: string, password: string) => Promise<boolean>;
-  logout: () => void;
-  loading: boolean;
-}
+import type { AuthContextType, User, ActionResult } from "@types";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<Auth.User | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -25,14 +18,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const login = async (
+    email: string,
+    password: string
+  ): Promise<ActionResult> => {
     try {
       const data = await loginApi({ email, password });
       setUser(data.user);
       localStorage.setItem("user", JSON.stringify(data.user));
-      return true;
-    } catch {
-      return false;
+      return { success: true };
+    } catch (err: any) {
+      return { success: false, errorKey: err?.errorKey || "login_failed" };
     }
   };
 

@@ -1,13 +1,18 @@
-import { Request, Response, NextFunction, RequestHandler } from "express";
+import { Request, Response, NextFunction } from "express";
 import prisma from "../services/db";
 import bcrypt from "bcrypt";
-import type { Auth } from "../../../types/api";
+import type {
+  RegisterRequest,
+  LoginRequest,
+  AuthResponse,
+  ApiResponse,
+} from "@types";
 
 const SALT_ROUNDS = 10;
 
 export const register = async (
-  req: Request<unknown, unknown, Auth.RegisterRequest>,
-  res: Response<Auth.AuthResponse | { errorKey: string; status: number }>,
+  req: Request<unknown, unknown, RegisterRequest>,
+  res: Response<ApiResponse<AuthResponse>>,
   next: NextFunction
 ): Promise<void> => {
   try {
@@ -37,8 +42,8 @@ export const register = async (
 };
 
 export const login = async (
-  req: Request<unknown, unknown, Auth.LoginRequest>,
-  res: Response<Auth.AuthResponse | { errorKey: string; status: number }>,
+  req: Request<unknown, unknown, LoginRequest>,
+  res: Response<ApiResponse<AuthResponse>>,
   next: NextFunction
 ): Promise<void> => {
   try {
@@ -59,16 +64,14 @@ export const login = async (
       res.status(401).json({ errorKey: "invalid_credentials", status: 401 });
       return;
     }
-    res
-      .status(200)
-      .json({
-        user: {
-          id: user.id,
-          email: user.email,
-          first_name: user.first_name,
-          last_name: user.last_name,
-        },
-      });
+    res.status(200).json({
+      user: {
+        id: user.id,
+        email: user.email,
+        first_name: user.first_name,
+        last_name: user.last_name,
+      },
+    });
   } catch (err) {
     next(err);
   }
