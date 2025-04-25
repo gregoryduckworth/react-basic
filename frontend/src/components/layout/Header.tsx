@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { AccountCircle, LightMode, DarkMode } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useThemeMode } from "../../context/ThemeContext";
 
 const Header = ({
   onSidebarToggle,
@@ -27,7 +28,7 @@ const Header = ({
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [darkMode, setDarkMode] = useState(false);
+  const { mode, toggleTheme } = useThemeMode();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,7 +36,6 @@ const Header = ({
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleThemeToggle = () => setDarkMode((v) => !v);
 
   return (
     <AppBar
@@ -83,11 +83,11 @@ const Header = ({
         </Box>
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton
-            onClick={handleThemeToggle}
+            onClick={toggleTheme}
             color="primary"
             aria-label="toggle theme"
           >
-            {darkMode ? <DarkMode /> : <LightMode />}
+            {mode === "dark" ? <DarkMode /> : <LightMode />}
           </IconButton>
           {user && (
             <>
