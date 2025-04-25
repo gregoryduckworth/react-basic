@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTheme, Box } from "@mui/material";
+import { useTheme, Box, Typography } from "@mui/material";
 
 interface HeaderProps {
   onSidebarToggle: () => void;
@@ -32,13 +32,10 @@ function LoggedInLayout({ sidebar, header, children }: LoggedInLayoutProps) {
       display="flex"
       flexDirection="column"
     >
-      {/* Header (full width) */}
       <Box position="sticky" top={0} zIndex={1100} width="100%">
         {headerWithProps}
       </Box>
-      {/* Main area: sidebar and content */}
       <Box display="flex" flexDirection="row" flex={1} minHeight={0}>
-        {/* Sidebar under header, full height */}
         {sidebar && (
           <Box
             sx={{
@@ -62,7 +59,6 @@ function LoggedInLayout({ sidebar, header, children }: LoggedInLayoutProps) {
             )}
           </Box>
         )}
-        {/* Content */}
         <Box
           component="main"
           flex={1}
@@ -74,8 +70,22 @@ function LoggedInLayout({ sidebar, header, children }: LoggedInLayoutProps) {
           height="100%"
           overflow="auto"
           width="100%"
+          position="relative"
         >
           {children}
+          <Box
+            sx={{
+              position: "fixed",
+              bottom: 16,
+              right: 24,
+              zIndex: 1200,
+              pointerEvents: "none",
+            }}
+          >
+            <Typography variant="caption" color="text.secondary" align="right">
+              &copy; {new Date().getFullYear()} HR Copilot
+            </Typography>
+          </Box>
         </Box>
       </Box>
     </Box>

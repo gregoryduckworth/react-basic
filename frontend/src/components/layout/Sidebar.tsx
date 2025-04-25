@@ -8,33 +8,31 @@ import {
   ListItemIcon,
   ListItemText,
   Typography,
-  Divider,
   Tooltip,
 } from "@mui/material";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import PersonIcon from "@mui/icons-material/Person";
-
-const navItems = [
-  {
-    labelKey: "dashboard_title",
-    href: "/dashboard",
-    icon: <DashboardIcon fontSize="small" />,
-    match: ["/dashboard"],
-  },
-  {
-    labelKey: "profile",
-    href: "/profile",
-    icon: <PersonIcon fontSize="small" />,
-    match: ["/profile"],
-  },
-];
+import { NavLink } from "react-router-dom";
+import { navItems } from "../../config/navItems";
 
 const SIDEBAR_WIDTH = 240;
 const SIDEBAR_COLLAPSED_WIDTH = 64;
 
-const Sidebar = ({ collapsed = false }: { collapsed?: boolean }) => {
+interface SidebarProps {
+  collapsed?: boolean;
+  navItems?: Array<{
+    labelKey: string;
+    href: string;
+    icon: React.ReactNode;
+    match: string[];
+  }>;
+}
+
+const Sidebar = ({
+  collapsed = false,
+  navItems: navItemsProp,
+}: SidebarProps) => {
   const { t } = useTranslation();
   const currentPath = window.location.pathname;
+  const items = navItemsProp || navItems;
 
   return (
     <Box
@@ -50,34 +48,34 @@ const Sidebar = ({ collapsed = false }: { collapsed?: boolean }) => {
         display: "flex",
         flexDirection: "column",
         boxShadow: 1,
-        height: "100%",
+        height: "100vh",
         zIndex: 1100,
+        position: "relative",
       }}
+      role="navigation"
+      aria-label="Main navigation"
     >
-      <List sx={{ flex: 1 }}>
-        {navItems.map((item) => (
+      <List sx={{ flex: 1, pb: 0 }} disablePadding>
+        {items.map((item) => (
           <ListItem key={item.href} disablePadding sx={{ display: "block" }}>
             <Tooltip
               title={collapsed ? t(item.labelKey) : ""}
               placement="right"
             >
               <ListItemButton
-                component="a"
-                href={item.href}
-                selected={item.match.includes(currentPath)}
-                sx={{
+                component={NavLink}
+                to={item.href}
+                sx={({ isActive }) => ({
                   justifyContent: collapsed ? "center" : "flex-start",
                   px: collapsed ? 1 : 2,
-                  "&.Mui-selected": {
-                    bgcolor: "primary.50",
-                    color: "primary.main",
-                    "& .MuiListItemIcon-root": { color: "primary.main" },
+                  bgcolor: isActive ? "primary.50" : undefined,
+                  color: isActive ? "primary.main" : undefined,
+                  "& .MuiListItemIcon-root": {
+                    color: isActive ? "primary.main" : undefined,
                   },
-                  "&:hover": {
-                    bgcolor: "primary.100",
-                  },
+                  "&:hover": { bgcolor: "primary.100" },
                   minHeight: 48,
-                }}
+                })}
               >
                 <ListItemIcon
                   sx={{
@@ -107,6 +105,13 @@ const Sidebar = ({ collapsed = false }: { collapsed?: boolean }) => {
         borderTop={1}
         borderColor="divider"
         textAlign={collapsed ? "center" : "inherit"}
+        sx={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          bgcolor: "background.paper",
+        }}
       >
         {!collapsed && (
           <Typography variant="caption" color="text.secondary" align="center">
