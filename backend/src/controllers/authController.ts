@@ -1,12 +1,13 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import prisma from "../services/db";
 import bcrypt from "bcrypt";
+import type { Auth } from "../../../types/api";
 
 const SALT_ROUNDS = 10;
 
 export const register = async (
-  req: Request,
-  res: Response,
+  req: Request<unknown, unknown, Auth.RegisterRequest>,
+  res: Response<Auth.AuthResponse | { errorKey: string; status: number }>,
   next: NextFunction
 ): Promise<void> => {
   try {
@@ -36,8 +37,8 @@ export const register = async (
 };
 
 export const login = async (
-  req: Request,
-  res: Response,
+  req: Request<unknown, unknown, Auth.LoginRequest>,
+  res: Response<Auth.AuthResponse | { errorKey: string; status: number }>,
   next: NextFunction
 ): Promise<void> => {
   try {

@@ -2,16 +2,10 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { login as loginApi } from "../services/auth";
-
-interface User {
-  id: number;
-  email: string;
-  first_name?: string;
-  last_name?: string;
-}
+import type { Auth } from "../../../types/api";
 
 interface AuthContextType {
-  user: User | null;
+  user: Auth.User | null;
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => void;
   loading: boolean;
@@ -20,7 +14,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Auth.User | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { t } = useTranslation();

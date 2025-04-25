@@ -67,7 +67,9 @@ const Header = ({
               edge="start"
               color="primary"
               aria-label={
-                sidebarCollapsed ? t("common.expand_sidebar") : t("common.collapse_sidebar")
+                sidebarCollapsed
+                  ? t("common.expand_sidebar")
+                  : t("common.collapse_sidebar")
               }
               onClick={onSidebarToggle}
               sx={{ mr: 1 }}

@@ -27,8 +27,8 @@ function Register() {
       await register({
         email,
         password,
-        firstName,
-        lastName,
+        first_name: firstName,
+        last_name: lastName,
       });
       setMessage(null);
       setLoading(false);
