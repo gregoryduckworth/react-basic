@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Box, Paper, Typography, TextField, Link } from "@mui/material";
@@ -144,4 +144,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default memo(Login);

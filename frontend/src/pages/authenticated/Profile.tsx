@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useAuth } from "../../context/AuthContext";
-import { Box, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 const Profile = () => {
   const { t } = useTranslation();

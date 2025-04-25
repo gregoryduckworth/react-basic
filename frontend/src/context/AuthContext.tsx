@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { fetchApi } from "../services/api";
+import { login as loginApi } from "../services/auth";
 
 interface User {
   id: number;
@@ -33,11 +33,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const login = async (email: string, password: string) => {
     try {
-      const data = await fetchApi("/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+      const data = await loginApi({ email, password });
       setUser(data.user);
       localStorage.setItem("user", JSON.stringify(data.user));
       return true;

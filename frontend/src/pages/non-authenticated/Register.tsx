@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { Button, Box, Paper, Typography, TextField, Link } from "@mui/material";
 import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
-import { fetchApi } from "../../services/api";
+import { register } from "../../services/auth";
 
 function Register() {
   const { t } = useTranslation();
@@ -24,15 +24,11 @@ function Register() {
     }
     setLoading(true);
     try {
-      await fetchApi("/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          email,
-          password,
-          first_name: firstName,
-          last_name: lastName,
-        }),
+      await register({
+        email,
+        password,
+        firstName,
+        lastName,
       });
       setMessage(null);
       setLoading(false);
@@ -189,4 +185,4 @@ function Register() {
   );
 }
 
-export default Register;
+export default memo(Register);

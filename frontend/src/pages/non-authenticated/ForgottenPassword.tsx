@@ -112,4 +112,4 @@ function ForgottenPassword() {
   );
 }
 
-export default ForgottenPassword;
+export default React.memo(ForgottenPassword);
