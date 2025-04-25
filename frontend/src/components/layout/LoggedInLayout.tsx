@@ -24,71 +24,80 @@ function LoggedInLayout({ sidebar, header, children }: LoggedInLayoutProps) {
         })
       : null;
 
+  const HEADER_HEIGHT = 64;
+  const SIDEBAR_WIDTH = sidebarCollapsed ? 64 : 240;
+
   return (
-    <Box
-      minHeight="100vh"
-      bgcolor={theme.palette.background.default}
-      color={theme.palette.text.primary}
-      display="flex"
-      flexDirection="column"
-    >
-      <Box position="sticky" top={0} zIndex={1100} width="100%">
+    <>
+      <Box
+        position="fixed"
+        top={0}
+        left={0}
+        width="100%"
+        zIndex={1300}
+        height={HEADER_HEIGHT}
+        bgcolor={theme.palette.background.default}
+      >
         {headerWithProps}
       </Box>
-      <Box display="flex" flexDirection="row" flex={1} minHeight={0}>
-        {sidebar && (
-          <Box
-            sx={{
-              width: sidebarCollapsed ? 64 : 240,
-              minWidth: sidebarCollapsed ? 64 : 240,
-              transition: "width 0.2s",
-              bgcolor: theme.palette.background.paper,
-              borderRight: `1px solid ${theme.palette.divider}`,
-              boxShadow: 1,
-              display: { xs: "none", sm: "block" },
-              height: "100vh",
-              position: "relative",
-              zIndex: 1100,
-            }}
-          >
-            {React.cloneElement(
-              sidebar as React.ReactElement<{ collapsed: boolean }>,
-              {
-                collapsed: sidebarCollapsed,
-              }
-            )}
-          </Box>
-        )}
+      {sidebar && (
         <Box
-          component="main"
-          flex={1}
-          display="flex"
-          flexDirection="column"
-          alignItems="center"
-          justifyContent="flex-start"
-          p={{ xs: 2, md: 4 }}
-          height="100%"
-          overflow="auto"
-          width="100%"
-          position="relative"
+          sx={{
+            position: "fixed",
+            top: HEADER_HEIGHT,
+            left: 0,
+            width: SIDEBAR_WIDTH,
+            minWidth: SIDEBAR_WIDTH,
+            height: `calc(100vh - ${HEADER_HEIGHT}px)`,
+            bgcolor: theme.palette.background.paper,
+            borderRight: `1px solid ${theme.palette.divider}`,
+            boxShadow: 1,
+            display: { xs: "none", sm: "block" },
+            zIndex: 1200,
+            transition: "width 0.2s",
+          }}
         >
-          {children}
-          <Box
-            sx={{
-              position: "fixed",
-              bottom: 16,
-              right: 24,
-              zIndex: 1200,
-              pointerEvents: "none",
-            }}
-          >
-            <Typography variant="caption" color="text.secondary" align="right">
-              &copy; {new Date().getFullYear()} HR Copilot
-            </Typography>
-          </Box>
+          {React.cloneElement(
+            sidebar as React.ReactElement<{ collapsed: boolean }>,
+            {
+              collapsed: sidebarCollapsed,
+            }
+          )}
+        </Box>
+      )}
+      <Box
+        component="main"
+        sx={{
+          position: "absolute",
+          top: `${HEADER_HEIGHT}px`,
+          left: { sm: `${SIDEBAR_WIDTH}px` },
+          width: { sm: `calc(100vw - ${SIDEBAR_WIDTH}px)` },
+          height: `calc(100vh - ${HEADER_HEIGHT}px)`,
+          overflow: "auto",
+          p: { xs: 2, md: 4 },
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          transition:
+            "left 0.2s cubic-bezier(0.4, 0, 0.2, 1), width 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+        }}
+      >
+        {children}
+        <Box
+          sx={{
+            position: "fixed",
+            bottom: 16,
+            right: 24,
+            pointerEvents: "none",
+          }}
+        >
+          <Typography variant="caption" color="text.secondary" align="right">
+            &copy; {new Date().getFullYear()} HR Copilot
+          </Typography>
         </Box>
       </Box>
-    </Box>
+    </>
   );
 }
 

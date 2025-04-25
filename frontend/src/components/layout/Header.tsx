@@ -39,7 +39,7 @@ const Header = ({
 
   return (
     <AppBar
-      position="sticky"
+      position="fixed"
       elevation={1}
       color="inherit"
       sx={{
@@ -47,7 +47,10 @@ const Header = ({
         borderBottom: 1,
         borderColor: "divider",
         boxShadow: 1,
-        zIndex: (theme) => theme.zIndex.drawer + 1,
+        zIndex: 1300,
+        width: "100%",
+        left: 0,
+        top: 0,
       }}
     >
       <Toolbar

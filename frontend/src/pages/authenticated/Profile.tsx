@@ -7,27 +7,20 @@ const Profile = () => {
   const { user } = useAuth();
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" gap={2}>
-      <Typography variant="h4" color="primary" align="center">
+    <>
+      <Typography variant="h4" color="primary">
         {t("profile_title", "Profile")}
       </Typography>
-      <Box color="primary.main" textAlign="center" maxWidth={400}>
-        <Box display="flex" flexDirection="column" gap={1}>
-          <Box>
-            <Typography component="span">{t("first_name")}:</Typography>{" "}
-            {user?.first_name || "-"}
-          </Box>
-          <Box>
-            <Typography component="span">{t("last_name")}:</Typography>{" "}
-            {user?.last_name || "-"}
-          </Box>
-          <Box>
-            <Typography component="span">{t("email")}:</Typography>{" "}
-            {user?.email || "-"}
-          </Box>
-        </Box>
-      </Box>
-    </Box>
+      <Typography>
+        {t("first_name")}:{user?.first_name || "-"}
+      </Typography>
+      <Typography>
+        {t("last_name")}:{user?.last_name || "-"}
+      </Typography>
+      <Typography>
+        {t("email")}:{user?.email || "-"}
+      </Typography>
+    </>
   );
 };
 
