@@ -1,6 +1,6 @@
 import React, { memo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "@context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import {
   AppBar,
@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import { AccountCircle, LightMode, DarkMode } from "@mui/icons-material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { useThemeMode } from "../../context/ThemeContext";
+import { useThemeMode } from "@context/ThemeContext";
 
 const Header = ({
   onSidebarToggle,

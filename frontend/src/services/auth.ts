@@ -1,5 +1,5 @@
-import { fetchApi } from "./api";
-import type { Auth } from "../../../shared/types/api";
+import { fetchApi } from "@services/api";
+import type { Auth } from "@types";
 
 export async function register(
   data: Auth.RegisterRequest

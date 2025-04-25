@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/non-authenticated/Home";
-import Login from "./pages/non-authenticated/Login";
-import Register from "./pages/non-authenticated/Register";
-import ForgottenPassword from "./pages/non-authenticated/ForgottenPassword";
-import Dashboard from "./pages/authenticated/Dashboard";
-import Profile from "./pages/authenticated/Profile";
-import { AuthProvider } from "./context/AuthContext";
-import { AuthenticatedLayout } from "./components/auth/AuthenticatedLayout";
+import { AuthProvider } from "@context/AuthContext";
+import { AuthenticatedLayout } from "@components/auth/AuthenticatedLayout";
+import Home from "@pages/non-authenticated/Home";
+import Login from "@pages/non-authenticated/Login";
+import Register from "@pages/non-authenticated/Register";
+import ForgottenPassword from "@pages/non-authenticated/ForgottenPassword";
+import Dashboard from "@pages/authenticated/Dashboard";
+import Profile from "@pages/authenticated/Profile";
 
 function App() {
   return (

@@ -2,8 +2,8 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import LoggedInLayout from "../layout/LoggedInLayout";
-import Sidebar from "../layout/Sidebar";
-import Header from "../layout/Header";
+import Sidebar from "@components/layout/Sidebar";
+import Header from "@components/layout/Header";
 
 export function AuthenticatedLayout({
   children,

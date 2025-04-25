@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Box, Paper, Typography, Button, Link, TextField } from "@mui/material";
-import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
+import LoggedOutLayout from "@components/layout/LoggedOutLayout";
 
 function ForgottenPassword() {
   const { t } = useTranslation();

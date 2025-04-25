@@ -2,8 +2,8 @@ import { useState, memo } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button, Box, Paper, Typography, TextField, Link } from "@mui/material";
-import { useAuth } from "../../context/AuthContext";
-import LoggedOutLayout from "../../components/layout/LoggedOutLayout";
+import { useAuth } from "@context/AuthContext";
+import LoggedOutLayout from "@components/layout/LoggedOutLayout";
 
 function Login() {
   const { t } = useTranslation();

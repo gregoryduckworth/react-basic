@@ -11,7 +11,7 @@ import {
   Tooltip,
 } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
-import { navItems } from "../../config/navItems";
+import { navItems } from "@config/navItems";
 
 const SIDEBAR_WIDTH = 240;
 const SIDEBAR_COLLAPSED_WIDTH = 64;
