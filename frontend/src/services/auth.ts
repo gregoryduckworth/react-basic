@@ -6,8 +6,7 @@ export async function register(
 ): Promise<Auth.AuthResponse> {
   return fetchApi<Auth.AuthResponse>("/register", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: data,
   });
 }
 
@@ -16,7 +15,6 @@ export async function login(
 ): Promise<Auth.AuthResponse> {
   return fetchApi<Auth.AuthResponse>("/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: data,
   });
 }

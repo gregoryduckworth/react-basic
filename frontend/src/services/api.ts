@@ -4,10 +4,16 @@ const API_BASE = import.meta.env.VITE_API_URL || "";
 
 export async function fetchApi<T = any>(
   endpoint: string,
-  options?: RequestInit
+  options: Omit<RequestInit, "body"> & { body?: unknown } = {}
 ): Promise<T> {
   const url = API_BASE.replace(/\/$/, "") + "/" + endpoint.replace(/^\//, "");
-  const res = await fetch(url, options);
+  const headers = {
+    "Content-Type": "application/json",
+    ...(options.headers || {}),
+  };
+  const body =
+    options.body !== undefined ? JSON.stringify(options.body) : undefined;
+  const res = await fetch(url, { ...options, headers, body });
   if (!res.ok) {
     let errorBody: any = {};
     try {

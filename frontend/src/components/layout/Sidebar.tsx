@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 import { NavLink, useLocation } from "react-router-dom";
 import { navItems } from "@config/navItems";
+import type { NavItem } from "@config/navItems";
 
 const SIDEBAR_WIDTH = 240;
 const SIDEBAR_COLLAPSED_WIDTH = 64;
@@ -34,12 +35,7 @@ const sidebarSx = (collapsed: boolean) => ({
 
 interface SidebarProps {
   collapsed?: boolean;
-  navItems?: Array<{
-    labelKey: string;
-    href: string;
-    icon: React.ReactNode;
-    match: string[];
-  }>;
+  navItems?: NavItem[];
 }
 
 const Sidebar = ({
