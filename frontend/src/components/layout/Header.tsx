@@ -10,14 +10,24 @@ import {
   MenuItem,
   Button,
   Divider,
+  IconButton,
+  Box,
 } from "@mui/material";
-import AccountCircle from "@mui/icons-material/AccountCircle";
+import { AccountCircle, LightMode, DarkMode } from "@mui/icons-material";
+import MenuIcon from "@mui/icons-material/Menu";
 
-const Header = () => {
+const Header = ({
+  onSidebarToggle,
+  sidebarCollapsed,
+}: {
+  onSidebarToggle?: () => void;
+  sidebarCollapsed?: boolean;
+}) => {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -25,69 +35,109 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const handleThemeToggle = () => setDarkMode((v) => !v);
 
   return (
-    <AppBar position="static" elevation={0}>
+    <AppBar
+      position="sticky"
+      elevation={1}
+      color="inherit"
+      sx={{
+        bgcolor: "background.paper",
+        borderBottom: 1,
+        borderColor: "divider",
+        boxShadow: 1,
+        zIndex: (theme) => theme.zIndex.drawer + 1,
+      }}
+    >
       <Toolbar
-        disableGutters
         sx={{
           display: "flex",
           justifyContent: "space-between",
-          width: "100%",
-          minHeight: "56px !important",
-          p: 0,
+          minHeight: 64,
+          px: 2,
         }}
       >
-        <Typography sx={{ color: "white", pl: 2 }}>
-          {t("dashboard_title")}
-        </Typography>
-        {user && (
-          <>
-            <Button
-              size="large"
-              onClick={handleMenu}
-              startIcon={<AccountCircle />}
-              sx={{
-                textTransform: "capitalize",
-                color: "white",
-                borderColor: "white",
-                "&:hover": { borderColor: "white" },
-              }}
-              aria-label={t("settings")}
-              aria-controls={anchorEl ? "user-menu" : undefined}
-              aria-haspopup="true"
-              aria-expanded={anchorEl ? "true" : undefined}
+        <Box display="flex" alignItems="center" gap={2}>
+          {onSidebarToggle && (
+            <IconButton
+              edge="start"
+              color="primary"
+              aria-label={
+                sidebarCollapsed ? t("expand_sidebar") : t("collapse_sidebar")
+              }
+              onClick={onSidebarToggle}
+              sx={{ mr: 1 }}
             >
-              {user.first_name} {user.last_name}
-            </Button>
-            <Menu
-              id="user-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-              transformOrigin={{ vertical: "top", horizontal: "right" }}
-            >
-              <MenuItem
-                onClick={() => {
-                  handleClose();
-                  navigate("/profile");
+              <MenuIcon />
+            </IconButton>
+          )}
+          <img
+            src="/vite.svg"
+            alt="Logo"
+            style={{ height: 32, marginRight: 8 }}
+          />
+          <Typography variant="h6" fontWeight={800} color="primary">
+            HR Copilot
+          </Typography>
+        </Box>
+        <Box display="flex" alignItems="center" gap={1}>
+          <IconButton
+            onClick={handleThemeToggle}
+            color="primary"
+            aria-label="toggle theme"
+          >
+            {darkMode ? <DarkMode /> : <LightMode />}
+          </IconButton>
+          {user && (
+            <>
+              <Button
+                size="large"
+                onClick={handleMenu}
+                startIcon={<AccountCircle />}
+                sx={{
+                  textTransform: "capitalize",
+                  color: "text.primary",
+                  borderColor: "divider",
+                  fontWeight: 600,
+                  ml: 1,
                 }}
+                aria-label={t("settings")}
+                aria-controls={anchorEl ? "user-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={anchorEl ? "true" : undefined}
               >
-                {t("profile", "Profile")}
-              </MenuItem>
-              <Divider />
-              <MenuItem
-                onClick={() => {
-                  handleClose();
-                  logout();
-                }}
+                {user.first_name} {user.last_name}
+              </Button>
+              <Menu
+                id="user-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
               >
-                {t("logout")}
-              </MenuItem>
-            </Menu>
-          </>
-        )}
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    navigate("/profile");
+                  }}
+                >
+                  {t("profile", "Profile")}
+                </MenuItem>
+                <Divider />
+                <MenuItem
+                  onClick={() => {
+                    handleClose();
+                    logout();
+                  }}
+                >
+                  {t("logout")}
+                </MenuItem>
+              </Menu>
+            </>
+          )}
+        </Box>
       </Toolbar>
     </AppBar>
   );
