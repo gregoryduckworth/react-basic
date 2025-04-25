@@ -7,7 +7,7 @@ interface LoggedOutLayoutProps {
   children: React.ReactNode;
 }
 
-const LoggedOutLayout: React.FC<LoggedOutLayoutProps> = ({ children }) => {
+function LoggedOutLayout({ children }: LoggedOutLayoutProps) {
   const { t } = useTranslation();
   const theme = useTheme();
 
@@ -48,6 +48,6 @@ const LoggedOutLayout: React.FC<LoggedOutLayoutProps> = ({ children }) => {
       </Box>
     </Box>
   );
-};
+}
 
 export default LoggedOutLayout;

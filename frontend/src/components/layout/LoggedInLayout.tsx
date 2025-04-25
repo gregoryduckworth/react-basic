@@ -7,11 +7,7 @@ interface LoggedInLayoutProps {
   children: React.ReactNode;
 }
 
-const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
-  sidebar,
-  header,
-  children,
-}) => {
+function LoggedInLayout({ sidebar, header, children }: LoggedInLayoutProps) {
   const theme = useTheme();
   return (
     <Box
@@ -53,6 +49,6 @@ const LoggedInLayout: React.FC<LoggedInLayoutProps> = ({
       </Box>
     </Box>
   );
-};
+}
 
 export default LoggedInLayout;
