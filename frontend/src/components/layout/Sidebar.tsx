@@ -10,11 +10,27 @@ import {
   Typography,
   Tooltip,
 } from "@mui/material";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { navItems } from "../../config/navItems";
 
 const SIDEBAR_WIDTH = 240;
 const SIDEBAR_COLLAPSED_WIDTH = 64;
+
+const sidebarSx = (collapsed: boolean) => ({
+  width: collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
+  minWidth: collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
+  maxWidth: collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
+  transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
+  overflowX: "hidden",
+  bgcolor: "background.paper",
+  borderRight: 1,
+  borderColor: "divider",
+  display: "flex",
+  flexDirection: "column",
+  boxShadow: 1,
+  height: "100%",
+  zIndex: 1100,
+});
 
 interface SidebarProps {
   collapsed?: boolean;
@@ -31,31 +47,12 @@ const Sidebar = ({
   navItems: navItemsProp,
 }: SidebarProps) => {
   const { t } = useTranslation();
-  const currentPath = window.location.pathname;
+  const location = useLocation();
   const items = navItemsProp || navItems;
 
   return (
-    <Box
-      sx={{
-        width: collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
-        minWidth: collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
-        maxWidth: collapsed ? SIDEBAR_COLLAPSED_WIDTH : SIDEBAR_WIDTH,
-        transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-        overflowX: "hidden",
-        bgcolor: "background.paper",
-        borderRight: 1,
-        borderColor: "divider",
-        display: "flex",
-        flexDirection: "column",
-        boxShadow: 1,
-        height: "100vh",
-        zIndex: 1100,
-        position: "relative",
-      }}
-      role="navigation"
-      aria-label="Main navigation"
-    >
-      <List sx={{ flex: 1, pb: 0 }} disablePadding>
+    <Box sx={sidebarSx(collapsed)} aria-label="Sidebar navigation">
+      <List sx={{ flex: 1 }}>
         {items.map((item) => (
           <ListItem key={item.href} disablePadding sx={{ display: "block" }}>
             <Tooltip
@@ -65,17 +62,20 @@ const Sidebar = ({
               <ListItemButton
                 component={NavLink}
                 to={item.href}
-                sx={({ isActive }) => ({
+                selected={location.pathname.startsWith(item.href)}
+                sx={{
                   justifyContent: collapsed ? "center" : "flex-start",
                   px: collapsed ? 1 : 2,
-                  bgcolor: isActive ? "primary.50" : undefined,
-                  color: isActive ? "primary.main" : undefined,
-                  "& .MuiListItemIcon-root": {
-                    color: isActive ? "primary.main" : undefined,
+                  minHeight: 48,
+                  "&.Mui-selected, &.Mui-selected:hover": {
+                    bgcolor: "primary.50",
+                    color: "primary.main",
+                    "& .MuiListItemIcon-root": {
+                      color: "primary.main",
+                    },
                   },
                   "&:hover": { bgcolor: "primary.100" },
-                  minHeight: 48,
-                })}
+                }}
               >
                 <ListItemIcon
                   sx={{
@@ -100,25 +100,6 @@ const Sidebar = ({
           </ListItem>
         ))}
       </List>
-      <Box
-        p={2}
-        borderTop={1}
-        borderColor="divider"
-        textAlign={collapsed ? "center" : "inherit"}
-        sx={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          width: "100%",
-          bgcolor: "background.paper",
-        }}
-      >
-        {!collapsed && (
-          <Typography variant="caption" color="text.secondary" align="center">
-            &copy; {new Date().getFullYear()} HR Copilot
-          </Typography>
-        )}
-      </Box>
     </Box>
   );
 };

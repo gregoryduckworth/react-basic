@@ -29,7 +29,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const theme = useMemo(() => (mode === "dark" ? darkTheme : lightTheme), [mode]);
+  const theme = useMemo(
+    () => (mode === "dark" ? darkTheme : lightTheme),
+    [mode]
+  );
 
   return (
     <ThemeContext.Provider value={{ mode, toggleTheme }}>
