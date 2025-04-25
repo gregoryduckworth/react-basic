@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import * as routes from "./routes";
-import prisma from "./services/db";
-import { errorHandler } from "./middleware/errorHandler";
+import prisma from "@services/db";
+import { errorHandler } from "@middleware/errorHandler";
 
 const app = express();
 const port = process.env.PORT || 4001;
@@ -15,7 +15,6 @@ app.use(routes.authRoute);
 
 app.use(errorHandler);
 
-// Graceful shutdown
 const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

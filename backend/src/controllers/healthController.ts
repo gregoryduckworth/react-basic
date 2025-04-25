@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { checkDbHealth } from "../services/healthService";
+import { checkDbHealth } from "@services/healthService";
 
 export const healthCheck = async (
   req: Request,

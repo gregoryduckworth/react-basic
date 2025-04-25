@@ -22,3 +22,13 @@ export namespace Auth {
     user: User;
   }
 }
+
+export interface APIErrorResponse {
+  errorKey: string;
+  status: number;
+  message?: string;
+}
+
+export interface HealthResponse {
+  status: "ok";
+}
