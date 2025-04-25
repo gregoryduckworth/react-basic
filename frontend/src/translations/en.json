@@ -70,5 +70,8 @@
   "home": {
     "title": "Vite + React",
     "subtitle_simple": "A modern starter powered by Vite and React with Tailwind CSS."
+  },
+  "settings": {
+    "settings_title": "Settings"
   }
 }

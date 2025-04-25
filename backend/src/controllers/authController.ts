@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
 import prisma from "../services/db";
 import bcrypt from "bcrypt";
-import type { Auth } from "../../../types/api";
+import type { Auth } from "@types";
 
 const SALT_ROUNDS = 10;
 
@@ -30,7 +30,14 @@ export const register = async (
       data: { email, password: hashed, first_name, last_name },
       select: { id: true, email: true, first_name: true, last_name: true },
     });
-    res.status(201).json({ user });
+    res.status(201).json({
+      user: {
+        id: user.id,
+        email: user.email,
+        first_name: user.first_name ?? undefined,
+        last_name: user.last_name ?? undefined,
+      },
+    });
   } catch (err) {
     next(err);
   }
@@ -59,16 +66,14 @@ export const login = async (
       res.status(401).json({ errorKey: "invalid_credentials", status: 401 });
       return;
     }
-    res
-      .status(200)
-      .json({
-        user: {
-          id: user.id,
-          email: user.email,
-          first_name: user.first_name,
-          last_name: user.last_name,
-        },
-      });
+    res.status(200).json({
+      user: {
+        id: user.id,
+        email: user.email,
+        first_name: user.first_name ?? undefined,
+        last_name: user.last_name ?? undefined,
+      },
+    });
   } catch (err) {
     next(err);
   }

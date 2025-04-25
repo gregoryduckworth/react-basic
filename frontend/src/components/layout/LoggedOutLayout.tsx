@@ -32,7 +32,7 @@ function LoggedOutLayout({ children }: LoggedOutLayoutProps) {
               fontWeight={700}
               color={theme.palette.primary.main}
             >
-              {t("homepage")}
+              {t("common.homepage")}
             </Typography>
           </Link>
         </Toolbar>

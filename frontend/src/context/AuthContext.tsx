@@ -2,7 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { login as loginApi } from "../services/auth";
-import type { Auth } from "../../../types/api";
+import type { Auth } from "../../../shared/types/api";
 
 interface AuthContextType {
   user: Auth.User | null;

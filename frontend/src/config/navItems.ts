@@ -10,19 +10,19 @@ export interface NavItem {
 
 export const navItems: NavItem[] = [
   {
-    labelKey: "dashboard_title",
+    labelKey: "dashboard.dashboard_title",
     href: "/dashboard",
     icon: React.createElement(Dashboard, { fontSize: "small" }),
     match: ["/dashboard"],
   },
   {
-    labelKey: "profile",
+    labelKey: "profile.profile_title",
     href: "/profile",
     icon: React.createElement(Person, { fontSize: "small" }),
     match: ["/profile"],
   },
   {
-    labelKey: "settings",
+    labelKey: "settings.settings_title",
     href: "/settings",
     icon: React.createElement(Settings, { fontSize: "small" }),
     match: ["/settings"],
