@@ -23,7 +23,7 @@ function Login() {
     const ok = await login(email, password);
     setLoading(false);
     if (!ok) {
-      setMessage(t("login_failed"));
+      setMessage(t("login.login_failed"));
       return;
     }
     setMessage(null);
@@ -55,10 +55,10 @@ function Login() {
             fontWeight={800}
             align="center"
           >
-            {t("login_title")}
+            {t("login.login_title")}
           </Typography>
           <Typography color="text.secondary" align="center">
-            {t("login_subtitle")}
+            {t("login.login_subtitle")}
           </Typography>
         </Box>
         <Paper
@@ -76,7 +76,7 @@ function Login() {
         >
           {registered && (
             <Typography color="success.main" align="center">
-              {t("register_success")}
+              {t("register.register_success")}
             </Typography>
           )}
           <Box
@@ -86,12 +86,12 @@ function Login() {
             gap={2}
             width="100%"
             onSubmit={handleLogin}
-            aria-label={t("login_form_label")}
+            aria-label={t("login.login_form_label")}
           >
             <TextField
               id="email"
               type="email"
-              label={t("email")}
+              label={t("form.email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -102,7 +102,7 @@ function Login() {
             <TextField
               id="password"
               type="password"
-              label={t("password")}
+              label={t("form.password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -116,7 +116,7 @@ function Login() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading ? t("logging_in") : t("login")}
+              {loading ? t("login.logging_in") : t("login.login")}
             </Button>
           </Box>
           {message && (
@@ -132,10 +132,10 @@ function Login() {
             textAlign="center"
           >
             <Link href="/forgotten-password" underline="hover" color="primary">
-              {t("forgot_password_link")}
+              {t("forgottenPassword.forgot_password_link")}
             </Link>
             <Link href="/register" underline="hover" color="primary">
-              {t("register_link")}
+              {t("register.register_link")}
             </Link>
           </Box>
         </Paper>

@@ -25,10 +25,10 @@ const Home = () => {
           mb={1}
           align="center"
         >
-          {t("title", "Welcome")}
+          {t("home.title")}
         </Typography>
         <Typography color="primary" align="center" mb={2}>
-          {t("subtitle_simple")}
+          {t("home.subtitle_simple")}
         </Typography>
         <Box display="flex" gap={2}>
           <Button
@@ -37,7 +37,7 @@ const Home = () => {
             color="primary"
             size="large"
           >
-            {t("login")}
+            {t("login.login")}
           </Button>
           <Button
             href="/register"
@@ -45,7 +45,7 @@ const Home = () => {
             color="success"
             size="large"
           >
-            {t("register")}
+            {t("register.register")}
           </Button>
         </Box>
       </Paper>

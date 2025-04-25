@@ -9,16 +9,16 @@ const Profile = () => {
   return (
     <>
       <Typography variant="h4" color="primary">
-        {t("profile_title", "Profile")}
+        {t("profile.profile_title", "Profile")}
       </Typography>
       <Typography>
-        {t("first_name")}:{user?.first_name || "-"}
+        {t("form.first_name")}:{user?.first_name || "-"}
       </Typography>
       <Typography>
-        {t("last_name")}:{user?.last_name || "-"}
+        {t("form.last_name")}:{user?.last_name || "-"}
       </Typography>
       <Typography>
-        {t("email")}:{user?.email || "-"}
+        {t("form.email")}:{user?.email || "-"}
       </Typography>
     </>
   );

@@ -1,46 +1,74 @@
 {
-  "api_healthy": "API is healthy!",
-  "api_unreachable": "Could not reach backend API.",
-  "check_api_health": "Check API Health",
-  "confirm_password": "Confirm Password",
-  "dashboard_title": "Dashboard",
-  "dashboard_subtitle": "View your dashboard",
-  "email": "Email",
-  "email_already_registered": "This email is already registered.",
-  "email_and_password_required": "Email and password are required.",
-  "footer": "Click on the Vite and React logos to learn more",
-  "forgot_password_link": "Forgot your password?",
-  "forgotten_password_sent": "If your email exists, a reset link has been sent.",
-  "forgotten_subtitle": "Enter your email to reset your password.",
-  "forgotten_title": "Forgotten Password",
-  "homepage": "Homepage",
-  "invalid_credentials": "Invalid email or password.",
-  "login_link": "Already have an account? Login",
-  "login_subtitle": "Access your account.",
-  "login_success": "Login successful!",
-  "login_failed": "Login failed. Please check your credentials.",
-  "login_title": "Login",
-  "login": "Login",
-  "logging_in": "Logging in...",
-  "logout": "Logout",
-  "logout_confirm": "Are you sure you want to logout?",
-  "cancel": "Cancel",
-  "confirm": "Confirm",
-  "password": "Password",
-  "passwords_no_match": "Passwords do not match.",
-  "plus": "+",
-  "profile": "Profile",
-  "react_logo_alt": "React logo",
-  "register_link": "Don't have an account? Register",
-  "register_subtitle": "Create a new account.",
-  "register_success": "Registration successful!",
-  "register_title": "Register",
-  "register": "Register",
-  "send_reset_link": "Send Reset Link",
-  "subtitle_simple": "A modern starter powered by Vite and React with Tailwind CSS.",
-  "title": "Vite + React",
-  "vite_logo_alt": "Vite logo",
-  "auth_context_error": "useAuth must be used within AuthProvider",
-  "loading": "Loading...",
-  "settings": "Settings"
+  "common": {
+    "api_healthy": "API is healthy!",
+    "api_unreachable": "Could not reach backend API.",
+    "check_api_health": "Check API Health",
+    "footer": "Click on the Vite and React logos to learn more",
+    "homepage": "Homepage",
+    "plus": "+",
+    "react_logo_alt": "React logo",
+    "vite_logo_alt": "Vite logo",
+    "auth_context_error": "useAuth must be used within AuthProvider",
+    "loading": "Loading...",
+    "settings": "Settings",
+    "logout": "Logout",
+    "logout_confirm": "Are you sure you want to logout?",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "expand_sidebar": "Expand sidebar",
+    "collapse_sidebar": "Collapse sidebar"
+  },
+  "form": {
+    "email": "Email",
+    "password": "Password",
+    "confirm_password": "Confirm Password",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "passwords_no_match": "Passwords do not match."
+  },
+  "login": {
+    "login": "Login",
+    "login_title": "Login",
+    "login_subtitle": "Access your account.",
+    "login_success": "Login successful!",
+    "login_failed": "Login failed. Please check your credentials.",
+    "login_link": "Already have an account? Login",
+    "logging_in": "Logging in...",
+    "login_form_label": "Login form"
+  },
+  "register": {
+    "register": "Register",
+    "register_title": "Register",
+    "register_subtitle": "Create a new account.",
+    "register_success": "Registration successful!",
+    "register_link": "Don't have an account? Register",
+    "registering": "Registering...",
+    "register_form_label": "Registration form"
+  },
+  "forgottenPassword": {
+    "forgotten_title": "Forgotten Password",
+    "forgotten_subtitle": "Enter your email to reset your password.",
+    "forgotten_password_sent": "If your email exists, a reset link has been sent.",
+    "forgot_password_link": "Forgot your password?",
+    "send_reset_link": "Send Reset Link",
+    "sending": "Sending...",
+    "forgotten_form_label": "Forgotten password form"
+  },
+  "dashboard": {
+    "dashboard_title": "Dashboard",
+    "dashboard_subtitle": "View your dashboard"
+  },
+  "profile": {
+    "profile": "Profile",
+    "profile_title": "Profile"
+  },
+  "error": {
+    "email_and_password_required": "Email and password are required.",
+    "email_already_registered": "This email is already registered.",
+    "invalid_credentials": "Invalid email or password."
+  },
+  "home": {
+    "title": "Vite + React",
+    "subtitle_simple": "A modern starter powered by Vite and React with Tailwind CSS."
+  }
 }

@@ -19,7 +19,7 @@ function Register() {
   async function handleRegister(e: React.FormEvent) {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setMessage(t("passwords_no_match"));
+      setMessage(t("form.passwords_no_match"));
       return;
     }
     setLoading(true);
@@ -37,7 +37,7 @@ function Register() {
       setLoading(false);
       const errorKey =
         err?.message?.errorKey || err?.errorKey || err?.message || err;
-      setMessage(t(errorKey));
+      setMessage(t(`error.${errorKey}`));
     }
   }
 
@@ -66,10 +66,10 @@ function Register() {
             fontWeight={800}
             align="center"
           >
-            {t("register_title")}
+            {t("register.register_title")}
           </Typography>
           <Typography color="text.secondary" align="center">
-            {t("register_subtitle")}
+            {t("register.register_subtitle")}
           </Typography>
         </Box>
         <Paper
@@ -92,12 +92,12 @@ function Register() {
             gap={2}
             width="100%"
             onSubmit={handleRegister}
-            aria-label={t("register_form_label")}
+            aria-label={t("register.register_form_label")}
           >
             <TextField
               id="firstName"
               type="text"
-              label={t("first_name", "First Name")}
+              label={t("form.first_name")}
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
               required
@@ -108,7 +108,7 @@ function Register() {
             <TextField
               id="lastName"
               type="text"
-              label={t("last_name", "Last Name")}
+              label={t("form.last_name")}
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
               required
@@ -119,7 +119,7 @@ function Register() {
             <TextField
               id="email"
               type="email"
-              label={t("email")}
+              label={t("form.email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -130,7 +130,7 @@ function Register() {
             <TextField
               id="password"
               type="password"
-              label={t("password")}
+              label={t("form.password")}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -141,7 +141,7 @@ function Register() {
             <TextField
               id="confirmPassword"
               type="password"
-              label={t("confirm_password")}
+              label={t("form.confirm_password")}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
@@ -155,7 +155,7 @@ function Register() {
               disabled={loading}
               aria-busy={loading}
             >
-              {loading ? t("registering") : t("register")}
+              {loading ? t("register.registering") : t("register.register")}
             </Button>
           </Box>
           {message && (
@@ -176,7 +176,7 @@ function Register() {
             textAlign="center"
           >
             <Link href="/login" underline="hover" color="primary">
-              {t("login_link")}
+              {t("login.login_link")}
             </Link>
           </Box>
         </Paper>

@@ -67,7 +67,7 @@ const Header = ({
               edge="start"
               color="primary"
               aria-label={
-                sidebarCollapsed ? t("expand_sidebar") : t("collapse_sidebar")
+                sidebarCollapsed ? t("common.expand_sidebar") : t("common.collapse_sidebar")
               }
               onClick={onSidebarToggle}
               sx={{ mr: 1 }}
@@ -105,7 +105,7 @@ const Header = ({
                   fontWeight: 600,
                   ml: 1,
                 }}
-                aria-label={t("settings")}
+                aria-label={t("common.settings")}
                 aria-controls={anchorEl ? "user-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={anchorEl ? "true" : undefined}
@@ -126,7 +126,7 @@ const Header = ({
                     navigate("/profile");
                   }}
                 >
-                  {t("profile", "Profile")}
+                  {t("profile.profile", "Profile")}
                 </MenuItem>
                 <Divider />
                 <MenuItem
@@ -135,7 +135,7 @@ const Header = ({
                     logout();
                   }}
                 >
-                  {t("logout")}
+                  {t("common.logout")}
                 </MenuItem>
               </Menu>
             </>

@@ -7,9 +7,9 @@ const Dashboard = () => {
   return (
     <>
       <Typography variant="h4" color="primary">
-        {t("dashboard_title")}
+        {t("dashboard.dashboard_title")}
       </Typography>
-      <Typography>{t("dashboard_subtitle")}</Typography>
+      <Typography>{t("dashboard.dashboard_subtitle")}</Typography>
     </>
   );
 };

@@ -13,7 +13,7 @@ function ForgottenPassword() {
     e.preventDefault();
     setLoading(true);
     setTimeout(() => {
-      setMessage(t("forgotten_password_sent"));
+      setMessage(t("forgottenPassword.forgotten_password_sent"));
       setLoading(false);
     }, 800);
   }
@@ -43,10 +43,10 @@ function ForgottenPassword() {
             fontWeight={800}
             align="center"
           >
-            {t("forgotten_title")}
+            {t("forgottenPassword.forgotten_title")}
           </Typography>
           <Typography color="text.secondary" align="center">
-            {t("forgotten_subtitle")}
+            {t("forgottenPassword.forgotten_subtitle")}
           </Typography>
         </Box>
         <Paper
@@ -69,11 +69,11 @@ function ForgottenPassword() {
             gap={2}
             width="100%"
             onSubmit={handleForgotten}
-            aria-label={t("forgotten_form_label")}
+            aria-label={t("forgottenPassword.forgotten_form_label")}
           >
             <TextField
               type="email"
-              label={t("email")}
+              label={t("form.email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -87,7 +87,9 @@ function ForgottenPassword() {
               aria-busy={loading}
               variant="contained"
             >
-              {loading ? t("sending") : t("send_reset_link")}
+              {loading
+                ? t("forgottenPassword.sending")
+                : t("forgottenPassword.send_reset_link")}
             </Button>
           </Box>
           {message && (
@@ -103,7 +105,7 @@ function ForgottenPassword() {
             textAlign="center"
           >
             <Link href="/login" underline="hover" color="primary">
-              {t("login_link")}
+              {t("login.login_link")}
             </Link>
           </Box>
         </Paper>
